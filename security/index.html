@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Using CLI - wise-agents Docs</title>
+    <title>Security - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Using CLI";
-        var mkdocs_page_input_path = "using_cli.md";
+        var mkdocs_page_name = "Security";
+        var mkdocs_page_input_path = "security.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -54,12 +54,10 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">RAG Architecture</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Using CLI</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../using_cli/">Using CLI</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
                   </li>
@@ -125,14 +123,26 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../security/">Security</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Security</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#the-wise-agents-community-takes-security-bugs-very-seriously">The Wise Agents community takes security bugs very seriously</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reporting-of-security-issues">Reporting of Security Issues</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#email-the-wise-agents-team">Email the Wise Agents team</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#other-considerations">Other considerations</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -149,8 +159,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Details</li>
-      <li class="breadcrumb-item active">Using CLI</li>
+          <li class="breadcrumb-item">About</li>
+      <li class="breadcrumb-item active">Security</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -159,14 +169,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="using-cli">Using CLI</h1>
-<p>TODO</p>
+                <!-- BEGIN INCLUDE ../SECURITY.md -->
+<h1 id="reporting-of-cves-and-security-issues">Reporting of CVEs and Security Issues</h1>
+<h2 id="the-wise-agents-community-takes-security-bugs-very-seriously">The Wise Agents community takes security bugs very seriously</h2>
+<p>We aim to take immediate action to address serious security-related problems that involve our project. </p>
+<p>Note that we will only fix such issues in the most recent minor release of Wise Agents.</p>
+<h2 id="reporting-of-security-issues">Reporting of Security Issues</h2>
+<p>When reporting a security vulnerability it is important to not accidentally broadcast to the world that
+the issue exists, as this makes it easier for people to exploit it. The software industry uses the term
+<a href="https://www.redhat.com/en/blog/security-embargoes-red-hat">embargo</a> to describe the time a
+security issue is known internally until it is public knowledge.</p>
+<p>Our preferred way of reporting security issues in Wise Agents is listed below.</p>
+<h3 id="email-the-wise-agents-team">Email the Wise Agents team</h3>
+<p>To report a security issue, please email <a href="mailto:fjuma@redhat.com">fjuma@redhat.com</a> and/or
+<a href="mailto:smaestri@redhat.com">smaestri@redhat.com</a>. A member of the Wise Agents team will
+open the required issues.</p>
+<h3 id="other-considerations">Other considerations</h3>
+<p>If you would like to work with us on a fix for the security vulnerability, please include your GitHub username
+in the above email, and we will provide you access to a temporary private fork where we can collaborate on a
+fix without it being disclosed publicly, <strong>including in your own publicly visible git repository</strong>.</p>
+<p>Do not open a public issue, send a pull request, or disclose any information about the suspected vulnerability
+publicly, <strong>including in your own publicly visible git repository</strong>. If you discover any publicly disclosed
+security vulnerabilities, please notify us immediately through the emails listed in the section above.</p>
+<!-- END INCLUDE -->
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../rag_architecture/" class="btn btn-neutral float-left" title="RAG Architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../declare_agents/" class="btn btn-neutral float-right" title="Declare agents in YAML">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../license/" class="btn btn-neutral float-left" title="License"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -189,10 +219,8 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../rag_architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../license/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../declare_agents/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
