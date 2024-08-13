@@ -1,1 +1,3 @@
-@import "../GETTING_STARTED.md"
+{%
+    include-markdown "../GETTING_STARTED.md"
+%}
