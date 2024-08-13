@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Developer Quick Start - wise-agents Docs</title>
+    <title>GitHub - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Developer Quick Start";
-        var mkdocs_page_input_path = "dev_quick_start.md";
+        var mkdocs_page_name = "GitHub";
+        var mkdocs_page_input_path = "github.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,14 +45,12 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="" href="../multi_agent_systems.md">What are AI Agents</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Developer Quick Start</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev_quick_start/">Developer Quick Start</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -125,10 +123,12 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="" href="../contact.md">Contact</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../github/">GitHub</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">GitHub</a>
+    <ul class="current">
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
                   </li>
@@ -149,8 +149,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Getting Started</li>
-      <li class="breadcrumb-item active">Developer Quick Start</li>
+          <li class="breadcrumb-item">About</li>
+      <li class="breadcrumb-item active">GitHub</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -159,43 +159,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <!-- BEGIN INCLUDE ../GETTING_STARTED.md -->
-<h1 id="wise-agents-getting-started">wise-agents getting started</h1>
-<h1 id="how-to-resolve-dependencies-declared-in-pyptojecttoml">How to resolve dependencies declared in pyptoject.toml</h1>
-<ol>
-<li>Create a venv and activate it</li>
-</ol>
-<pre><code>python -m venv .venv
-source .venv/bin/activate
-</code></pre>
-<ol>
-<li><code>pip install .</code></li>
-</ol>
-<h1 id="how-to-run-test">How to run test</h1>
-<ol>
-<li>Run <code>pip install -e '.[test]'</code></li>
-<li>Start the llm service (see <a href="../model-serving/README.MD">model-serving/README.MD</a>)</li>
-<li>From project's root directory run <code>pytest</code></li>
-<li>If you need log enable it running <code>pytest --log-cli-level=DEBUG</code></li>
-<li>If you want to run a single test you can specify the test with -k option: <code>pytest -k test_register_agents --log-cli-level=DEBUG</code></li>
-<li>You can also run all tests contained in a single file with the same option <code>pytest -k test_WiseAgentRegistry --log-cli-level=DEBUG</code></li>
-<li>Note the name of the file could be partial so for example <code>pytest -k test_yaml --log-cli-level=DEBUG</code> will run test contained in <code>tests/wiseagents/test_yaml_deserializer.py</code> and ``tests/wiseagents/test_yaml_serialization.py)</li>
-</ol>
-<h1 id="how-to-run-the-cli-chatbot">How to run the cli chatbot</h1>
-<ol>
-<li>Run <code>pip install .</code></li>
-<li>Start the llm service (see <a href="../model-serving/README.MD">model-serving/README.MD</a>)</li>
-<li>Start artemis service (see [artemis/README.MD])(artemis/README.MD)</li>
-<li>Set the <code>STOMP_USER</code> and <code>STOMP_PASSWORD</code> environment variables</li>
-<li>Run the CLI <code>python src/wiseagents/cli/wise_agent_cli.py</code></li>
-</ol>
-<!-- END INCLUDE -->
+                <h1 id="wise-agents-github">wise-agents github</h1>
+<p>Wise-agents is an open source project hosted on github</p>
+<p><a href="https://github.com/wise-agents/wise-agents">https://github.com/wise-agents/wise-agents</a></p>
+<p>Please join us, fork the project or add a star. </p>
+<p>If you need to create an issue please go to </p>
+<p><a href="https://github.com/wise-agents/wise-agents/issues">https://github.com/wise-agents/wise-agents/issues</a></p>
+<p>Do you want to contribute? 
+see our <a href="../contributing/">dedicated page</a></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../wise_agents_architecture/" class="btn btn-neutral float-left" title="Wise Agents architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../rag_architecture/" class="btn btn-neutral float-right" title="RAG Architecture">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../reference/wiseagents/wise_agent_messaging/" class="btn btn-neutral float-left" title="wise_agent_messaging"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../contributing/" class="btn btn-neutral float-right" title="Contributing">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -218,10 +195,10 @@ source .venv/bin/activate
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../wise_agents_architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../reference/wiseagents/wise_agent_messaging/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../rag_architecture/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../contributing/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
