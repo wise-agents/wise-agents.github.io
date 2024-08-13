@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Developer Quick Start - wise-agents Docs</title>
+    <title>What are AI Agents? - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Developer Quick Start";
-        var mkdocs_page_input_path = "dev_quick_start.md";
+        var mkdocs_page_name = "What are AI Agents?";
+        var mkdocs_page_input_path = "multi_agents.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -45,14 +45,12 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Getting Started</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="" href="../multi_agent_systems.md">What are AI Agents</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Developer Quick Start</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../dev_quick_start/">Developer Quick Start</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -149,8 +147,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Getting Started</li>
-      <li class="breadcrumb-item active">Developer Quick Start</li>
+      <li class="breadcrumb-item active">What are AI Agents?</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -159,44 +156,66 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <!-- BEGIN INCLUDE ../GETTING_STARTED.md -->
-<h1 id="wise-agents-getting-started">wise-agents getting started</h1>
-<h1 id="how-to-resolve-dependencies-declared-in-pyptojecttoml">How to resolve dependencies declared in pyptoject.toml</h1>
-<ol>
-<li>Create a venv and activate it</li>
-</ol>
-<pre><code>python -m venv .venv
-source .venv/bin/activate
-</code></pre>
-<ol>
-<li><code>pip install .</code></li>
-</ol>
-<h1 id="how-to-run-test">How to run test</h1>
-<ol>
-<li>Run <code>pip install -e '.[test]'</code></li>
-<li>Start the llm service (see <a href="../model-serving/README.MD">model-serving/README.MD</a>)</li>
-<li>From project's root directory run <code>pytest</code></li>
-<li>If you need log enable it running <code>pytest --log-cli-level=DEBUG</code></li>
-<li>If you want to run a single test you can specify the test with -k option: <code>pytest -k test_register_agents --log-cli-level=DEBUG</code></li>
-<li>You can also run all tests contained in a single file with the same option <code>pytest -k test_WiseAgentRegistry --log-cli-level=DEBUG</code></li>
-<li>Note the name of the file could be partial so for example <code>pytest -k test_yaml --log-cli-level=DEBUG</code> will run test contained in <code>tests/wiseagents/test_yaml_deserializer.py</code> and ``tests/wiseagents/test_yaml_serialization.py)</li>
-</ol>
-<h1 id="how-to-run-the-cli-chatbot">How to run the cli chatbot</h1>
-<ol>
-<li>Run <code>pip install .</code></li>
-<li>Start the llm service (see <a href="../model-serving/README.MD">model-serving/README.MD</a>)</li>
-<li>Start artemis service (see [artemis/README.MD])(artemis/README.MD)</li>
-<li>Set the <code>STOMP_USER</code> and <code>STOMP_PASSWORD</code> environment variables</li>
-<li>Run the CLI <code>python src/wiseagents/cli/wise_agent_cli.py</code></li>
-</ol>
-<!-- END INCLUDE -->
+                <h1 id="what-are-ai-agents">What are AI Agents?</h1>
+<p>AI agents are autonomous software systems that can perceive their environment, make decisions, and take actions to achieve specific goals. They are designed to operate without human intervention, leveraging advanced AI techniques like natural language processing and machine learning.</p>
+<h2 id="key-characteristics-of-ai-agents">Key characteristics of AI agents</h2>
+<ul>
+<li><strong>Autonomy</strong>: AI agents can make decisions and act independently based on their goals and the information they gather.</li>
+<li><strong>Flexibility</strong>: They can adapt to changing circumstances and learn from experience to improve their performance over time.</li>
+<li><strong>Reactivity</strong>: AI agents can perceive their environment and respond to changes in real-time.</li>
+</ul>
+<h2 id="components-of-an-ai-agent">Components of an AI Agent</h2>
+<p>AI agents are composed of several key components that enable their autonomous behavior:
+Sensors: Used to gather information from the environment, such as user inputs, sensor data, or external APIs.
+Agent Function: The core decision-making algorithm that maps sensor inputs to actions.
+Actuators: Mechanisms that allow the agent to affect its environment, such as generating text responses, making API calls, or sending notifications.
+Goals: The objectives the agent is designed to achieve, which guide its decision-making process.</p>
+<h1 id="what-is-a-multi-agent-ai-framework">What is a multi-agent AI framework?</h1>
+<p>A multi-agent AI framework is a system where multiple intelligent agents interact or work together to perform complex tasks, solve problems, or simulate environments. These agents can be autonomous entities, each with its own capabilities, knowledge base, and goals. Here’s a detailed description of a multi-agent AI framework:</p>
+<h2 id="key-components">Key Components</h2>
+<ul>
+<li><strong>Agents</strong>:<ul>
+<li>Reactive Agents: Respond to changes in the environment.</li>
+<li>Deliberative Agents: Use reasoning and planning to achieve goals.</li>
+<li>Hybrid Agents: Combine reactive and deliberative strategies.</li>
+</ul>
+</li>
+<li><strong>Communication Mechanism</strong>:<ul>
+<li>Direct Communication: Agents send messages to each other.</li>
+<li>Indirect Communication: Agents use shared context or memory.</li>
+</ul>
+</li>
+<li><strong>Coordination and Cooperation</strong>:
+Strategies for agents to work together towards common goals, avoid conflicts, and optimize joint performance.<ul>
+<li>Examples:<ul>
+<li>Task Allocation: Dividing tasks among agents based on their capabilities.</li>
+<li>Task planning and prioritization</li>
+<li>Negotiation/reasoning: Agents discuss to reach agreements.</li>
+<li>Conflict resolution: Avoid loop or infinite loop for the same question</li>
+<li>Challenge other agents: challenge previous steps to reduce hallucinations</li>
+<li>Decision-Making: Methods for agents to make choices based on their goals, perceptions, and available information. LLMs or other AI algorithms (tule engine, game theory etc) can be used.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Retrieve additional information</strong>: RAG agents can retrieve informations for better results. The agentic approach permit also a multi-step RAG refining progressively the information retrieved </li>
+</ul>
+<h2 id="advantages">Advantages</h2>
+<ul>
+<li><strong>Scalability</strong>: Easily add more agents to the system to handle increased complexity or workload.</li>
+<li><strong>Flexibility</strong>: Agents can be designed to specialize in different tasks, improving overall system performance.</li>
+<li><strong>Robustness</strong>: Failure of one agent does not necessarily compromise the entire system, enhancing reliability.</li>
+<li><strong>Efficiency</strong>: Distributed problem-solving can lead to faster and more efficient solutions.</li>
+</ul>
+<p>In summary, a multi-agent AI framework is a sophisticated and versatile system designed to handle complex, dynamic tasks by leveraging the collective intelligence and capabilities of multiple interacting agents.</p>
+<h1 id="applications-of-ai-agents">Applications of AI Agents</h1>
+<p>AI agents have a wide range of applications across various industries:
+* Conversational AI: Chatbots and virtual assistants that can interact naturally. The interaction can be more complex and benefits of the multi-agent system characteristics described above.
+* Automation: Agents that can automate complex workflows and decision-making processes.
+* Problem-solving: Agents that can break down complex problems, generate solutions, and execute tasks.</p>
               
             </div>
           </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../wise_agents_architecture/" class="btn btn-neutral float-left" title="Wise Agents architecture"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../rag_architecture/" class="btn btn-neutral float-right" title="RAG Architecture">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
 
   <hr/>
 
@@ -218,10 +237,6 @@ source .venv/bin/activate
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../wise_agents_architecture/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../rag_architecture/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
