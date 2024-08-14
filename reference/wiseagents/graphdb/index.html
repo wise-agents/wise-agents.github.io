@@ -392,6 +392,269 @@
 
 
 
+<h2 id="wiseagents.graphdb.LangChainWiseAgentGraphDB" class="doc doc-heading">
+            <code>LangChainWiseAgentGraphDB</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.graphdb.wise_agent_graph_db.WiseAgentGraphDB" href="wise_agent_graph_db/#wiseagents.graphdb.wise_agent_graph_db.WiseAgentGraphDB">WiseAgentGraphDB</a></code></p>
+
+
+      <p>An abstract class that makes use of a LangChain graph database.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">LangChainWiseAgentGraphDB</span><span class="p">(</span><span class="n">WiseAgentGraphDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An abstract class that makes use of a LangChain graph database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new instance of LangChainWiseAgentGraphDB.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            embedding_model_name (Optional[str]): the optional name of the embedding model to use </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span> <span class="o">=</span> <span class="n">embedding_model_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embedding_model_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the embedding model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span>
+
+    <span class="k">def</span> <span class="nf">convert_to_lang_chain_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">Entity</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Node</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">entity</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">entity</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">entity</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">convert_to_lang_chain_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relationship</span><span class="p">:</span> <span class="n">Relationship</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LangChainRelationship</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LangChainRelationship</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_to_lang_chain_node</span><span class="p">(</span><span class="n">relationship</span><span class="o">.</span><span class="n">source</span><span class="p">),</span>
+                                     <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_to_lang_chain_node</span><span class="p">(</span><span class="n">relationship</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+                                     <span class="nb">type</span><span class="o">=</span><span class="n">relationship</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                                     <span class="n">properties</span><span class="o">=</span><span class="n">relationship</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">convert_to_lang_chain_graph_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_document</span><span class="p">:</span> <span class="n">GraphDocument</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LangChainGraphDocument</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LangChainGraphDocument</span><span class="p">(</span><span class="n">nodes</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_to_lang_chain_node</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+                                             <span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">graph_document</span><span class="o">.</span><span class="n">entities</span><span class="p">],</span>
+                                      <span class="n">relationships</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_to_lang_chain_relationship</span><span class="p">(</span><span class="n">relationship</span><span class="p">)</span>
+                                                     <span class="k">for</span> <span class="n">relationship</span> <span class="ow">in</span> <span class="n">graph_document</span><span class="o">.</span><span class="n">relationships</span><span class="p">],</span>
+                                      <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">convert_to_lang_chain_document</span><span class="p">(</span><span class="n">graph_document</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">convert_to_lang_chain_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LangChainDocument</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">LangChainDocument</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">page_content</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">refresh_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">insert_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">insert_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relationship</span><span class="p">:</span> <span class="n">Relationship</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">insert_graph_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GraphDocument</span><span class="p">]):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">create_vector_db_from_graph_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.LangChainWiseAgentGraphDB.embedding_model_name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">embedding_model_name</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the name of the embedding model.</p>
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.graphdb.LangChainWiseAgentGraphDB.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="o">=</span><span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize a new instance of LangChainWiseAgentGraphDB.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>embedding_model_name</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code><span title="wiseagents.constants.DEFAULT_EMBEDDING_MODEL_NAME">DEFAULT_EMBEDDING_MODEL_NAME</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the optional name of the embedding model to use</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize a new instance of LangChainWiseAgentGraphDB.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        embedding_model_name (Optional[str]): the optional name of the embedding model to use </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span> <span class="o">=</span> <span class="n">embedding_model_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB" class="doc doc-heading">
             <code>Neo4jLangChainWiseAgentGraphDB</code>
 
@@ -401,23 +664,15 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="wiseagents.graphdb.lang_chain_wise_agent_graph_db.LangChainWiseAgentGraphDB">LangChainWiseAgentGraphDB</span></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.graphdb.lang_chain_wise_agent_graph_db.LangChainWiseAgentGraphDB" href="lang_chain_wise_agent_graph_db/#wiseagents.graphdb.lang_chain_wise_agent_graph_db.LangChainWiseAgentGraphDB">LangChainWiseAgentGraphDB</a></code></p>
 
+
+      <p>A LangChainWiseAgentGraphDB implementation that makes use of a LangChain Neo4j graph database
+and a corresponding Neo4j vector database.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 85</span>
 <span class="normal"> 86</span>
 <span class="normal"> 87</span>
 <span class="normal"> 88</span>
@@ -556,15 +811,84 @@
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Neo4jLangChainWiseAgentGraphDB</span><span class="p">(</span><span class="n">LangChainWiseAgentGraphDB</span><span class="p">):</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Neo4jLangChainWiseAgentGraphDB</span><span class="p">(</span><span class="n">LangChainWiseAgentGraphDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A LangChainWiseAgentGraphDB implementation that makes use of a LangChain Neo4j graph database</span>
+<span class="sd">    and a corresponding Neo4j vector database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!Neo4jLangChainWiseAgentGraphDB&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">refresh_graph_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                  <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">,</span>
                  <span class="n">entity_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;entity&quot;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Neo4jGraph will obtain the username, password, and database name to be used from</span>
-<span class="sd">        the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new instance of Neo4jLangChainWiseAgent</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            properties (List[str]): the properties to be used as text node properties for the graph database</span>
+<span class="sd">            collection_name (str): the collection name to use for the vector database</span>
+<span class="sd">            url (Optional[str]): the URL of the Neo4j database (the username, password, and database name to be used</span>
+<span class="sd">            will be obtained from the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables)</span>
+<span class="sd">            refresh_graph_schema (Optional[bool]): whether to refresh the graph schema</span>
+<span class="sd">            embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">            entity_label (Optional[str]): the label to use for entities in the graph database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">properties</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_collection_name</span> <span class="o">=</span> <span class="n">collection_name</span>
@@ -601,22 +925,27 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the properties to be used as text node properties for the graph database.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">collection_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the collection name to use for the vector database.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collection_name</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">entity_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the label to use for entities in the graph database.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_label</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the URL of the Neo4j database.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_url</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">refresh_graph_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get whether to refresh the graph schema.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_graph_schema</span>
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -653,6 +982,13 @@
                                                   <span class="k">for</span> <span class="n">graph_document</span> <span class="ow">in</span> <span class="n">graph_documents</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">create_vector_db_from_graph_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a vector database from the graph database.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            retrieval_query (str): the retrieval query to use for the vector database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="o">=</span> <span class="n">Neo4jVector</span><span class="o">.</span><span class="n">from_existing_graph</span><span class="p">(</span><span class="n">embedding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span><span class="p">,</span>
                                                                 <span class="n">node_label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entity_label</span><span class="p">,</span>
@@ -663,6 +999,19 @@
                                                                 <span class="n">retrieval_query</span><span class="o">=</span><span class="n">retrieval_query</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">query_with_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Query the vector database that corresponds to this graph database using the given query and</span>
+<span class="sd">        retrieve the top k documents.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            query (str): the query to execute</span>
+<span class="sd">            k (int): the number of documents to retrieve</span>
+<span class="sd">            retrieval_query (str): the retrieval query to use for the vector database</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Document]: the list of documents retrieved from the vector database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># this assumes that the vector DB has already been created prior to attempting to query it</span>
             <span class="c1"># and we are simply retrieving the existing index here</span>
@@ -695,13 +1044,16 @@
                                                                 <span class="n">keyword_index_name</span><span class="o">=</span><span class="s2">&quot;keyword&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">delete_vector_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete the vector database that corresponds to this graph database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span><span class="o">.</span><span class="n">delete_index</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Close the neo4j driver.</span>
+<span class="sd">        Close the Neo4j driver.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_graph_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_graph_db</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -720,6 +1072,111 @@
 
 
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.collection_name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">collection_name</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the collection name to use for the vector database.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.entity_label" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">entity_label</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the label to use for entities in the graph database.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.properties" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">properties</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the properties to be used as text node properties for the graph database.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.refresh_graph_schema" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">refresh_graph_schema</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get whether to refresh the graph schema.</p>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.url" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">url</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the URL of the Neo4j database.</p>
+    </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -737,13 +1194,13 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the state of the graph DB. Removing the instance variable neo4j_graph_db to avoid it being serialized/deserialized by pyyaml.&quot;&quot;&quot;</span>
     <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_neo4j_graph_db&#39;</span><span class="p">]</span>
@@ -767,30 +1224,123 @@
 
     <div class="doc doc-contents ">
 
-      <p>Neo4jGraph will obtain the username, password, and database name to be used from
-the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p>
+      <p>Initialize a new instance of Neo4jLangChainWiseAgent</p>
 
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>properties</code></b>
+                  (<code><span title="typing.List">List</span>[str]</code>)
+              –
+              <div class="doc-md-description">
+                <p>the properties to be used as text node properties for the graph database</p>
+              </div>
+            </li>
+            <li>
+              <b><code>collection_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the collection name to use for the vector database</p>
+              </div>
+            </li>
+            <li>
+              <b><code>url</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the URL of the Neo4j database (the username, password, and database name to be used</p>
+              </div>
+            </li>
+            <li>
+              <b><code>refresh_graph_schema</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[bool]</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>whether to refresh the graph schema</p>
+              </div>
+            </li>
+            <li>
+              <b><code>embedding_model_name</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code><span title="wiseagents.constants.DEFAULT_EMBEDDING_MODEL_NAME">DEFAULT_EMBEDDING_MODEL_NAME</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the optional name of the embedding model to use</p>
+              </div>
+            </li>
+            <li>
+              <b><code>entity_label</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code>&#39;entity&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the label to use for entities in the graph database</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
              <span class="n">refresh_graph_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
              <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">,</span>
              <span class="n">entity_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;entity&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Neo4jGraph will obtain the username, password, and database name to be used from</span>
-<span class="sd">    the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize a new instance of Neo4jLangChainWiseAgent</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        properties (List[str]): the properties to be used as text node properties for the graph database</span>
+<span class="sd">        collection_name (str): the collection name to use for the vector database</span>
+<span class="sd">        url (Optional[str]): the URL of the Neo4j database (the username, password, and database name to be used</span>
+<span class="sd">        will be obtained from the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables)</span>
+<span class="sd">        refresh_graph_schema (Optional[bool]): whether to refresh the graph schema</span>
+<span class="sd">        embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">        entity_label (Optional[str]): the label to use for entities in the graph database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">properties</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_collection_name</span> <span class="o">=</span> <span class="n">collection_name</span>
@@ -820,11 +1370,11 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a string representation of the graph DB.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(properties=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="si">}</span><span class="s2">, url=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">, refresh_schema=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">refresh_graph_schema</span><span class="si">}</span><span class="s2">,&quot;</span>
             <span class="sa">f</span><span class="s2">&quot;embedding_model_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="si">}</span><span class="s2">, collection_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span><span class="si">}</span><span class="s2">,&quot;</span>
@@ -846,25 +1396,263 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 
     <div class="doc doc-contents ">
 
-      <p>Close the neo4j driver.</p>
+      <p>Close the Neo4j driver.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Close the neo4j driver.</span>
+<span class="sd">    Close the Neo4j driver.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_graph_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_graph_db</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.create_vector_db_from_graph_db" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">create_vector_db_from_graph_db</span><span class="p">(</span><span class="n">retrieval_query</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Create a vector database from the graph database.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>retrieval_query</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the retrieval query to use for the vector database</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_vector_db_from_graph_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a vector database from the graph database.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        retrieval_query (str): the retrieval query to use for the vector database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="o">=</span> <span class="n">Neo4jVector</span><span class="o">.</span><span class="n">from_existing_graph</span><span class="p">(</span><span class="n">embedding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span><span class="p">,</span>
+                                                            <span class="n">node_label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">entity_label</span><span class="p">,</span>
+                                                            <span class="n">embedding_node_property</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span>
+                                                            <span class="n">text_node_properties</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">,</span>
+                                                            <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                                                            <span class="n">index_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span><span class="p">,</span>
+                                                            <span class="n">retrieval_query</span><span class="o">=</span><span class="n">retrieval_query</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.delete_vector_db" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">delete_vector_db</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Delete the vector database that corresponds to this graph database.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">delete_vector_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete the vector database that corresponds to this graph database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span><span class="o">.</span><span class="n">delete_index</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.graphdb.Neo4jLangChainWiseAgentGraphDB.query_with_embeddings" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">query_with_embeddings</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Query the vector database that corresponds to this graph database using the given query and
+retrieve the top k documents.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>query</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the query to execute</p>
+              </div>
+            </li>
+            <li>
+              <b><code>k</code></b>
+                  (<code>int</code>)
+              –
+              <div class="doc-md-description">
+                <p>the number of documents to retrieve</p>
+              </div>
+            </li>
+            <li>
+              <b><code>retrieval_query</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the retrieval query to use for the vector database</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="wiseagents.vectordb.Document" href="../vectordb/#wiseagents.vectordb.Document">Document</a>]</code>
+              –
+              <div class="doc-md-description">
+                <p>List[Document]: the list of documents retrieved from the vector database</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/graphdb/lang_chain_wise_agent_graph_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">query_with_embeddings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Query the vector database that corresponds to this graph database using the given query and</span>
+<span class="sd">    retrieve the top k documents.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        query (str): the query to execute</span>
+<span class="sd">        k (int): the number of documents to retrieve</span>
+<span class="sd">        retrieval_query (str): the retrieval query to use for the vector database</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List[Document]: the list of documents retrieved from the vector database</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># this assumes that the vector DB has already been created prior to attempting to query it</span>
+        <span class="c1"># and we are simply retrieving the existing index here</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_vector_db_from_existing_index</span><span class="p">(</span><span class="n">embedding_node_property</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">,</span> <span class="n">retrieval_query</span><span class="o">=</span><span class="n">retrieval_query</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_neo4j_vector_db</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1189,7 +1977,11 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentGraphDB</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAMLObject</span><span class="p">):</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentGraphDB</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAMLObject</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract class to define the interface for a WiseAgentGraphDB.&quot;&quot;&quot;</span>
 
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!WiseAgentGraphDB&#39;</span>
@@ -1216,6 +2008,7 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Query the graph DB.</span>
 
+
 <span class="sd">        Args:</span>
 <span class="sd">            query (str): the query to execute</span>
 <span class="sd">            params (dict): the optional parameters for the query</span>
@@ -1230,6 +2023,7 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Insert an entity into the graph DB.</span>
 
+
 <span class="sd">        Args:</span>
 <span class="sd">            entity (Entity): the entity to insert</span>
 <span class="sd">            source (Source): information about the source from which the entity has been derived from</span>
@@ -1241,6 +2035,7 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Insert a relationship into the graph DB.</span>
 
+
 <span class="sd">        Args:</span>
 <span class="sd">            relationship (Relationship): the relationship to insert</span>
 <span class="sd">            source (Source): information about the source from which the relationship has been derived from</span>
@@ -1251,6 +2046,7 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
     <span class="k">def</span> <span class="nf">insert_graph_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GraphDocument</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Insert a list of graph documents into the graph DB.</span>
+
 
 <span class="sd">        Args:</span>
 <span class="sd">            graph_documents (List[GraphDocuments]): the graph documents to insert</span>
@@ -1387,8 +2183,7 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
-<span class="normal">104</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
 <span class="normal">107</span>
@@ -1396,10 +2191,13 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
-<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">insert_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Insert an entity into the graph DB.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        entity (Entity): the entity to insert</span>
@@ -1455,18 +2253,20 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">insert_graph_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">GraphDocument</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Insert a list of graph documents into the graph DB.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        graph_documents (List[GraphDocuments]): the graph documents to insert</span>
@@ -1529,19 +2329,21 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/wise_agent_graph_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
-<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">insert_relationship</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relationship</span><span class="p">:</span> <span class="n">Relationship</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Insert a relationship into the graph DB.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        relationship (Relationship): the relationship to insert</span>
@@ -1642,10 +2444,12 @@ the NEO4J_USERNAME, NEO4J_PASSWORD, and NEO4J_DATABASE environment variables.</p
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span>
-<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Query the graph DB.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        query (str): the query to execute</span>
