@@ -226,6 +226,8 @@
               Bases: <code><span title="yaml.YAMLObject">YAMLObject</span></code></p>
 
 
+      <p>A message that can be sent between agents.</p>
+
               <details class="quote">
                 <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
                 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
@@ -282,11 +284,40 @@
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentMessage</span><span class="p">(</span><span class="n">YAMLObject</span><span class="p">):</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentMessage</span><span class="p">(</span><span class="n">YAMLObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; A message that can be sent between agents. &#39;&#39;&#39;</span>
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!wiseagents.WiseAgentMessage&#39;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">message_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WiseAgentMessageType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
                  <span class="n">chat_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tool_id</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">context_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">route_response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>  
+                 <span class="n">route_response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialize the message.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): the message contents (a natural language string)</span>
+<span class="sd">            sender Optional(str): the sender of the message (or None if the sender was not specified)</span>
+<span class="sd">            message_type Optional(WiseAgentMessageType): the type of the message (or None if the type was not specified)</span>
+<span class="sd">            chat_id Optional(str): the id of the message</span>
+<span class="sd">            tool_id Optional(str): the id of the tool</span>
+<span class="sd">            context_name Optional(str): the context name of the message</span>
+<span class="sd">            route_response_to Optional(str): the id of the tool to route the response to</span>
+<span class="sd">            &#39;&#39;&#39;</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sender</span> <span class="o">=</span> <span class="n">sender</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_message_type</span> <span class="o">=</span> <span class="n">message_type</span>
@@ -317,6 +348,11 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sender</span>
     <span class="nd">@sender</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">sender</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Set the sender of the message.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sender (str): the sender of the message</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sender</span> <span class="o">=</span> <span class="n">sender</span>
 
     <span class="nd">@property</span>
@@ -500,6 +536,158 @@
 
 
 
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.wise_agent_messaging.WiseAgentMessage.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">chat_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tool_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">context_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">route_response_to</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the message.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>message</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the message contents (a natural language string)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>sender</code></b>
+                  (<code>Optional(str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the sender of the message (or None if the sender was not specified)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>message_type</code></b>
+                  (<code>Optional(WiseAgentMessageType</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the type of the message (or None if the type was not specified)</p>
+              </div>
+            </li>
+            <li>
+              <b><code>chat_id</code></b>
+                  (<code>Optional(str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the id of the message</p>
+              </div>
+            </li>
+            <li>
+              <b><code>tool_id</code></b>
+                  (<code>Optional(str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the id of the tool</p>
+              </div>
+            </li>
+            <li>
+              <b><code>context_name</code></b>
+                  (<code>Optional(str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the context name of the message</p>
+              </div>
+            </li>
+            <li>
+              <b><code>route_response_to</code></b>
+                  (<code>Optional(str</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the id of the tool to route the response to</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sender</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">message_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">WiseAgentMessageType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+             <span class="n">chat_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tool_id</span> <span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">context_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">route_response_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Initialize the message.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        message (str): the message contents (a natural language string)</span>
+<span class="sd">        sender Optional(str): the sender of the message (or None if the sender was not specified)</span>
+<span class="sd">        message_type Optional(WiseAgentMessageType): the type of the message (or None if the type was not specified)</span>
+<span class="sd">        chat_id Optional(str): the id of the message</span>
+<span class="sd">        tool_id Optional(str): the id of the tool</span>
+<span class="sd">        context_name Optional(str): the context name of the message</span>
+<span class="sd">        route_response_to Optional(str): the id of the tool to route the response to</span>
+<span class="sd">        &#39;&#39;&#39;</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_sender</span> <span class="o">=</span> <span class="n">sender</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_message_type</span> <span class="o">=</span> <span class="n">message_type</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_chat_id</span> <span class="o">=</span> <span class="n">chat_id</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tool_id</span> <span class="o">=</span> <span class="n">tool_id</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_route_response_to</span> <span class="o">=</span> <span class="n">route_response_to</span>
+    <span class="k">if</span> <span class="n">context_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context_name</span> <span class="o">=</span> <span class="n">context_name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_context_name</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
 
 
   </div>
@@ -524,26 +712,11 @@
               Bases: <code><span title="yaml.YAMLObject">YAMLObject</span></code></p>
 
 
+      <p>A transport for sending messages between agents.</p>
+
               <details class="quote">
                 <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
 <span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
@@ -589,12 +762,47 @@
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentTransport</span><span class="p">(</span><span class="n">YAMLObject</span><span class="p">):</span>
-
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentTransport</span><span class="p">(</span><span class="n">YAMLObject</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; A transport for sending messages between agents. &#39;&#39;&#39;</span>    
     <span class="k">def</span> <span class="nf">set_call_backs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">event_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentEvent</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">error_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">response_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Set the call back functions for the transport.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving requests</span>
+<span class="sd">            event_receiver Optional(Callable[[], WiseAgentEvent]): the call back function for receiving events</span>
+<span class="sd">            error_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving errors</span>
+<span class="sd">            response_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving responses</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_receiver</span> <span class="o">=</span> <span class="n">request_receiver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_event_receiver</span> <span class="o">=</span> <span class="n">event_receiver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_receiver</span> <span class="o">=</span> <span class="n">error_receiver</span>
@@ -612,6 +820,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send a request message to an agent.</span>
 
+
 <span class="sd">        Args:</span>
 <span class="sd">            message (WiseAgentMessage): the message to send</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -621,6 +830,7 @@
     <span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send a request message to an agent.</span>
+
 
 <span class="sd">        Args:</span>
 <span class="sd">            message (WiseAgentMessage): the message to send</span>
@@ -791,18 +1001,20 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Send a request message to an agent.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        message (WiseAgentMessage): the message to send</span>
@@ -853,23 +1065,133 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Send a request message to an agent.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        message (WiseAgentMessage): the message to send</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.wise_agent_messaging.WiseAgentTransport.set_call_backs" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">set_call_backs</span><span class="p">(</span><span class="n">request_receiver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">event_receiver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">error_receiver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_receiver</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Set the call back functions for the transport.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>request_receiver</code></b>
+                  (<code>Optional(Callable[[], WiseAgentMessage]</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the call back function for receiving requests</p>
+              </div>
+            </li>
+            <li>
+              <b><code>event_receiver</code></b>
+                  (<code>Optional(Callable[[], WiseAgentEvent]</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the call back function for receiving events</p>
+              </div>
+            </li>
+            <li>
+              <b><code>error_receiver</code></b>
+                  (<code>Optional(Callable[[], WiseAgentMessage]</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the call back function for receiving errors</p>
+              </div>
+            </li>
+            <li>
+              <b><code>response_receiver</code></b>
+                  (<code>Optional(Callable[[], WiseAgentMessage]</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the call back function for receiving responses</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">set_call_backs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">event_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentEvent</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">error_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+             <span class="n">response_receiver</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">WiseAgentMessage</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Set the call back functions for the transport.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving requests</span>
+<span class="sd">        event_receiver Optional(Callable[[], WiseAgentEvent]): the call back function for receiving events</span>
+<span class="sd">        error_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving errors</span>
+<span class="sd">        response_receiver Optional(Callable[[], WiseAgentMessage]): the call back function for receiving responses</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_request_receiver</span> <span class="o">=</span> <span class="n">request_receiver</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_event_receiver</span> <span class="o">=</span> <span class="n">event_receiver</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_error_receiver</span> <span class="o">=</span> <span class="n">error_receiver</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_response_receiver</span> <span class="o">=</span> <span class="n">response_receiver</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -891,12 +1213,12 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Start the transport.</span>
@@ -923,12 +1245,12 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/wise_agent_messaging.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stop the transport.</span>

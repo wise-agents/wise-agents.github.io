@@ -183,6 +183,275 @@
 
 
 
+<h2 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB" class="doc doc-heading">
+            <code>LangChainWiseAgentVectorDB</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.vectordb.wise_agent_vector_db.WiseAgentVectorDB" href="../wise_agent_vector_db/#wiseagents.vectordb.wise_agent_vector_db.WiseAgentVectorDB">WiseAgentVectorDB</a></code></p>
+
+
+      <p>An abstract class that makes use of a LangChain vector database.</p>
+
+              <details class="quote">
+                <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">LangChainWiseAgentVectorDB</span><span class="p">(</span><span class="n">WiseAgentVectorDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An abstract class that makes use of a LangChain vector database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new instance of LangChainWiseAgentVectorDB.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span> <span class="o">=</span> <span class="n">embedding_model_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embedding_model_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the name of the embedding model.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span>
+
+    <span class="k">def</span> <span class="nf">get_embedding_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the embedding function.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_embedding_function&quot;</span><span class="p">):</span>
+            <span class="c1"># instances populated from PyYAML won&#39;t have this set initially</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span>
+
+    <span class="k">def</span> <span class="nf">convert_from_lang_chain_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">LangChainDocument</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">page_content</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span> <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">]</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_or_create_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">insert_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">insert_or_update_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">delete_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="o">...</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queries</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]]:</span>
+        <span class="o">...</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB.embedding_model_name" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">embedding_model_name</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the name of the embedding model.</p>
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="o">=</span><span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize a new instance of LangChainWiseAgentVectorDB.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>embedding_model_name</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code><span title="wiseagents.constants.DEFAULT_EMBEDDING_MODEL_NAME">DEFAULT_EMBEDDING_MODEL_NAME</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the optional name of the embedding model to use</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize a new instance of LangChainWiseAgentVectorDB.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_model_name</span> <span class="o">=</span> <span class="n">embedding_model_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB.get_embedding_function" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_embedding_function</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the embedding function.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_embedding_function</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the embedding function.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_embedding_function&quot;</span><span class="p">):</span>
+        <span class="c1"># instances populated from PyYAML won&#39;t have this set initially</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_function</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.PGVectorLangChainWiseAgentVectorDB" class="doc doc-heading">
             <code>PGVectorLangChainWiseAgentVectorDB</code>
 
@@ -192,24 +461,14 @@
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><span title="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB">LangChainWiseAgentVectorDB</span></code></p>
+              Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB" href="#wiseagents.vectordb.lang_chain_wise_agent_vector_db.LangChainWiseAgentVectorDB">LangChainWiseAgentVectorDB</a></code></p>
 
+
+      <p>A LangChainWiseAgentVectorDB implementation that makes use of a LangChain PGVector database.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 56</span>
-<span class="normal"> 57</span>
-<span class="normal"> 58</span>
-<span class="normal"> 59</span>
-<span class="normal"> 60</span>
-<span class="normal"> 61</span>
-<span class="normal"> 62</span>
-<span class="normal"> 63</span>
-<span class="normal"> 64</span>
-<span class="normal"> 65</span>
-<span class="normal"> 66</span>
-<span class="normal"> 67</span>
-<span class="normal"> 68</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 68</span>
 <span class="normal"> 69</span>
 <span class="normal"> 70</span>
 <span class="normal"> 71</span>
@@ -257,11 +516,46 @@
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
-<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PGVectorLangChainWiseAgentVectorDB</span><span class="p">(</span><span class="n">LangChainWiseAgentVectorDB</span><span class="p">):</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PGVectorLangChainWiseAgentVectorDB</span><span class="p">(</span><span class="n">LangChainWiseAgentVectorDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A LangChainWiseAgentVectorDB implementation that makes use of a LangChain PGVector database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!PGVectorLangChainWiseAgentVectorDB&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new instance of PGVectorLangChainWiseAgentVectorDB.</span>
+
+
+<span class="sd">        Args:</span>
+<span class="sd">            connection_string (str): the connection string for the PGVector database</span>
+<span class="sd">            embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection_string</span> <span class="o">=</span> <span class="n">connection_string</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vector_dbs</span> <span class="o">=</span> <span class="p">{}</span>
@@ -281,6 +575,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">connection_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the connection string.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_string</span>
 
     <span class="k">def</span> <span class="nf">get_or_create_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -331,6 +626,27 @@
 
 
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.PGVectorLangChainWiseAgentVectorDB.connection_string" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">connection_string</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Get the connection string.</p>
+    </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -348,17 +664,95 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span>
+<span class="normal">98</span>
+<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the state of the vector DB. Removing _vector_dbs and _embedding_function to avoid them being serialized/deserialized by pyyaml.&quot;&quot;&quot;</span>
     <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_vector_dbs&#39;</span><span class="p">]</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_embedding_function&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">state</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="wiseagents.vectordb.lang_chain_wise_agent_vector_db.PGVectorLangChainWiseAgentVectorDB.__init__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">connection_string</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="o">=</span><span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize a new instance of PGVectorLangChainWiseAgentVectorDB.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>connection_string</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the connection string for the PGVector database</p>
+              </div>
+            </li>
+            <li>
+              <b><code>embedding_model_name</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code><span title="wiseagents.constants.DEFAULT_EMBEDDING_MODEL_NAME">DEFAULT_EMBEDDING_MODEL_NAME</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the optional name of the embedding model to use</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">embedding_model_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_EMBEDDING_MODEL_NAME</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initialize a new instance of PGVectorLangChainWiseAgentVectorDB.</span>
+
+
+<span class="sd">    Args:</span>
+<span class="sd">        connection_string (str): the connection string for the PGVector database</span>
+<span class="sd">        embedding_model_name (Optional[str]): the optional name of the embedding model to use</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_connection_string</span> <span class="o">=</span> <span class="n">connection_string</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_vector_dbs</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -380,10 +774,10 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/vectordb/lang_chain_wise_agent_vector_db.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a string representation of the vector DB.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(connection_string=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">connection_string</span><span class="si">}</span><span class="s2">,&quot;</span>
             <span class="sa">f</span><span class="s2">&quot;embedding_model_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_model_name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
