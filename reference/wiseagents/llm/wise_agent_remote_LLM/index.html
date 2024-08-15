@@ -199,11 +199,7 @@
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
@@ -240,7 +236,11 @@
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentRemoteLLM</span><span class="p">(</span><span class="n">WiseAgentLLM</span><span class="p">):</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentRemoteLLM</span><span class="p">(</span><span class="n">WiseAgentLLM</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extend WiseAgentLLM to support remote execution of WiseAgentLLM on a remote machine.&quot;&quot;&quot;</span>
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!WiseAgentRemoteLLM&#39;</span>    
 
@@ -333,9 +333,9 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Return a string representation of the agent.&#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(system_message=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">system_message</span><span class="si">}</span><span class="s2">, model_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">, remote_address=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">remote_address</span><span class="si">}</span><span class="s2">)&quot;</span>
 </code></pre></div></td></tr></table></div>
@@ -376,7 +376,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
         <ul class="first simple">
             <li>
               <b><code>messages</code></b>
-                  (<code>Iterable[ChatCompletionMessageParam]</code>)
+                  (<code><span title="typing.Iterable">Iterable</span>[<span title="openai.types.chat.ChatCompletionMessageParam">ChatCompletionMessageParam</span>]</code>)
               –
               <div class="doc-md-description">
                 <p>the messages to process</p>
@@ -384,7 +384,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
             </li>
             <li>
               <b><code>tools</code></b>
-                  (<code>Iterable[ChatCompletionToolParam]</code>)
+                  (<code><span title="typing.Iterable">Iterable</span>[<span title="openai.types.chat.ChatCompletionToolParam">ChatCompletionToolParam</span>]</code>)
               –
               <div class="doc-md-description">
                 <p>the tools to use</p>
@@ -407,7 +407,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
       <td class="field-body">
         <ul class="first simple">
             <li>
-<b><code>ChatCompletion</code></b>(                  <code>ChatCompletion</code>
+<b><code>ChatCompletion</code></b>(                  <code><span title="openai.types.chat.ChatCompletion">ChatCompletion</span></code>
 )              –
               <div class="doc-md-description">
                 <p>the chat completion result</p>
@@ -420,11 +420,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
@@ -434,7 +430,11 @@ Deal with the messages and tools is responsibility of the caller.</p>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">process_chat_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                             <span class="n">messages</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ChatCompletionMessageParam</span><span class="p">],</span> 
                             <span class="n">tools</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ChatCompletionToolParam</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ChatCompletion</span><span class="p">:</span>
@@ -499,15 +499,15 @@ The single prompt is processed and the result is returned, all the context and s
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">process_single_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Process a single prompt. This method should be implemented by subclasses.</span>
 <span class="sd">    The single prompt is processed and the result is returned, all the context and state is maintained locally in the method</span>
