@@ -50,7 +50,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../contributing/">How to contribute</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -126,7 +126,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../contributing/">How to contribute</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../license/">License</a>
                   </li>
@@ -304,7 +304,8 @@
 <span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
-<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StompWiseAgentTransport</span><span class="p">(</span><span class="n">WiseAgentTransport</span><span class="p">):</span>
+<span class="normal">163</span>
+<span class="normal">164</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StompWiseAgentTransport</span><span class="p">(</span><span class="n">WiseAgentTransport</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A transport for sending messages between agents using the STOMP protocol.&#39;&#39;&#39;</span>
 
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!wiseagents.transport.StompWiseAgentTransport&#39;</span>
@@ -366,7 +367,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
+        <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending request </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">request_destination</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -710,7 +712,8 @@
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
-<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Send a request message to an agent.</span>
 
 <span class="sd">    Args:</span>
@@ -723,7 +726,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
+    <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending request </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">request_destination</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
     <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -778,8 +782,7 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
-<span class="normal">121</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
@@ -788,7 +791,8 @@
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">130</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Send a response message to an agent.</span>
 
 <span class="sd">    Args:</span>
@@ -873,8 +877,7 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
-<span class="normal">133</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">133</span>
 <span class="normal">134</span>
 <span class="normal">135</span>
 <span class="normal">136</span>
@@ -882,7 +885,8 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">141</span>
+<span class="normal">142</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Stop the transport.&#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1">#unsubscribe from the request topic</span>
