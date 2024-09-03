@@ -50,18 +50,30 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">RAG Architecture</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#graphrag-a-description">GraphRAG: a description</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-rag">What is RAG?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-does-rag-work">How does RAG work?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#why-a-graphrag">Why a GraphRAG?</a>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#our-architecture-and-implementations">Our architecture and implementations</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-graph-rag">What is Graph RAG?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-does-graph-rag-work">How does Graph RAG work?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#graph-rag-with-embedding-based-retrieval">Graph RAG with Embedding-Based Retrieval</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#our-architecture-and-implementations_1">Our architecture and implementations</a>
     </li>
     </ul>
                   </li>
@@ -134,7 +146,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -166,14 +178,61 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="wise-agents-rag-architecture">wise-agents RAG architecture</h1>
-<h2 id="graphrag-a-description">GraphRAG: a description</h2>
-<h2 id="why-a-graphrag">Why a GraphRAG?</h2>
+<p>Wise Agents provides agent implementations that can be used for both standard retrieval augmented
+generation (RAG) and also for RAG with knowledge graphs (Graph RAG).</p>
+<h2 id="what-is-rag">What is RAG?</h2>
+<p>Retrieval augmented generation (RAG) provides the ability to enhance the knowledge of a large language
+model (LLM) by incorporating additional information during response generation. This is very important
+because although LLMs are trained with extremely large quantities of data, this data is static, has
+a cut-off date, and likely lacks domain-specific information. RAG provides the ability to incorporate
+additional information obtained from knowledge sources to ground LLM responses using this information,
+resulting in better quality responses.</p>
+<h3 id="how-does-rag-work">How does RAG work?</h3>
+<p>To be able to make use of RAG, the very first step is ingestion. Here, knowledge sources are processed,
+split into chunks of text, each chunk of text is converted to a vector representation (also known as
+an embedding), and then stored in a vector database.</p>
+<p>After this initial step, upon receiving a query, the goal is to retrieve the information that is most
+relevant to the query from the vector database. This is done by converting the query to a vector
+representation (i.e., embedding) and then querying the vector database to retrieve the chunks that
+are most similar to the query.</p>
+<p>The retrieved information is then included in a prompt to the LLM along with the original query. This
+helps the LLM to generate a response that is grounded in the retrieved information.</p>
 <h2 id="our-architecture-and-implementations">Our architecture and implementations</h2>
+<p>TODO</p>
+<h2 id="what-is-graph-rag">What is Graph RAG?</h2>
+<p>Graph RAG is a more structured approach to RAG. In standard RAG, as described above, the knowledge
+sources are simply split into chunks of text. However, there are many sources of information that
+actually have a lot of structure to them where this structure would be lost if just convert the knowledge
+source to text as is and split into chunks. For example, think about a bug report that has many different
+fields like "Description", "Steps to Reproduce", "Relates To", "Resolution", etc. If we just take the text
+from the bug report as is and just split the text into chunks, we'd lose all the structure that is
+inherently present in the bug report and the relationships to other bug reports.</p>
+<p>Graph RAG involves converting knowledge sources to knowledge graphs consisting of entities and
+relationships to preserve the structure that's inherent in the sources.</p>
+<h2 id="how-does-graph-rag-work">How does Graph RAG work?</h2>
+<p>Just like with standard RAG, the very first step is ingestion. Here, knowledge sources are processed and
+split into entities and relationships that are stored in a graph database. This can either be done manually
+or automatically using an LLM.</p>
+<p>After this initial step, upon receiving a query, the goal is to retrieve the information that is most
+relevant to the query from the graph database. This can be done by querying the graph database to
+extract relevant nodes and/or sub-graphs. As an example, let's consider the case where we have a graph
+database that consists of entities and relationships that have been derived from bug reports. If the
+query is "NullPointerException when invoking method <code>foo</code>", we can query the graph database to find
+bug reports with similar "Descriptions" and then extract additional relevant information from these bug
+reports like the "Resolution" for example.</p>
+<p>The retrieved information is then included in a prompt to the LLM along with the original query. This
+helps the LLM to generate a response that is grounded in the retrieved information.</p>
+<h3 id="graph-rag-with-embedding-based-retrieval">Graph RAG with Embedding-Based Retrieval</h3>
+<p>In addition to simply querying the graph database, it's also possible to create a vector representation
+(embedding) for each entity in the graph and then use embedding-based retrieval as in standard RAG
+to retrieve sub-graphs from the graph database that are most similar to the query.</p>
+<h2 id="our-architecture-and-implementations_1">Our architecture and implementations</h2>
+<p>TODO</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../dev_quick_start/" class="btn btn-neutral float-left" title="Developer Quick Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../contributing/" class="btn btn-neutral float-left" title="How to contribute"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../using_cli/" class="btn btn-neutral float-right" title="Using CLI">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -197,7 +256,7 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../dev_quick_start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../contributing/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../using_cli/" style="color: #fcfcfc">Next &raquo;</a></span>
