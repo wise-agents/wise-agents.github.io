@@ -50,7 +50,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -73,6 +73,16 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="../../">wiseagents</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../../agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/collaboration_wise_agents/">collaboration_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../cli/wise_agent_cli/">wise_agent_cli</a>
@@ -80,6 +90,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../core/">core</a>
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="../">graphdb</a>
     <ul class="current">
@@ -115,11 +127,13 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../yaml_env/">yaml_env</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml_env/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +142,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../license/">License</a>
                   </li>
@@ -195,7 +209,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-      <p>An entity (node) in a knowledge graph.</p>
+        <p>An entity (node) in a knowledge graph.</p>
 
 
 <table class="field-list">
@@ -301,7 +315,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-      <p>A graph document is a collection of entities and relationships that are part of a knowledge graph.</p>
+        <p>A graph document is a collection of entities and relationships that are part of a knowledge graph.</p>
 
 
 <table class="field-list">
@@ -407,7 +421,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-      <p>A relationship (edge) in a knowledge graph.</p>
+        <p>A relationship (edge) in a knowledge graph.</p>
 
 
 <table class="field-list">
@@ -525,7 +539,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-      <p>Information about a source from which entities and relationships have been derived from.</p>
+        <p>Information about a source from which entities and relationships have been derived from.</p>
 
 
 <table class="field-list">
@@ -631,7 +645,7 @@
               Bases: <code><span title="yaml.YAMLObject">YAMLObject</span></code></p>
 
 
-      <p>Abstract class to define the interface for a WiseAgentGraphDB.</p>
+        <p>Abstract class to define the interface for a WiseAgentGraphDB.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/graphdb/wise_agent_graph_db.py</code></summary>
@@ -806,7 +820,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the schema of the graph DB.</p>
+        <p>Get the schema of the graph DB.</p>
 
 
 <table class="field-list">
@@ -871,7 +885,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Insert an entity into the graph DB.</p>
+        <p>Insert an entity into the graph DB.</p>
 
 
 <table class="field-list">
@@ -949,7 +963,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Insert a list of graph documents into the graph DB.</p>
+        <p>Insert a list of graph documents into the graph DB.</p>
 
 
 <table class="field-list">
@@ -1017,7 +1031,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Insert a relationship into the graph DB.</p>
+        <p>Insert a relationship into the graph DB.</p>
 
 
 <table class="field-list">
@@ -1095,7 +1109,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Query the graph DB.</p>
+        <p>Query the graph DB.</p>
 
 
 <table class="field-list">
@@ -1204,7 +1218,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Refresh the schema of the graph DB.</p>
+        <p>Refresh the schema of the graph DB.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/graphdb/wise_agent_graph_db.py</code></summary>

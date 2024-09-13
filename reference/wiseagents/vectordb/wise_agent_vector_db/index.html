@@ -50,7 +50,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -73,6 +73,16 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="../../">wiseagents</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../../agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/collaboration_wise_agents/">collaboration_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../cli/wise_agent_cli/">wise_agent_cli</a>
@@ -80,6 +90,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../graphdb/">graphdb</a>
     <ul>
@@ -115,11 +127,13 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../yaml_env/">yaml_env</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml_env/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +142,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../license/">License</a>
                   </li>
@@ -195,7 +209,7 @@
               Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
 
 
-      <p>A document is a chunk of text.</p>
+        <p>A document is a chunk of text.</p>
 <p>content (str): the string that makes up the chunk of text
 id (str): the optional id associated with the chunk of text
 metadata (Optional[dict]): optional information about the chunk of text</p>
@@ -262,7 +276,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
               Bases: <code><span title="yaml.YAMLObject">YAMLObject</span></code></p>
 
 
-      <p>Abstract class to define the interface for a WiseAgentVectorDB.</p>
+        <p>Abstract class to define the interface for a WiseAgentVectorDB.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/vectordb/wise_agent_vector_db.py</code></summary>
@@ -453,7 +467,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
 
     <div class="doc doc-contents ">
 
-      <p>Delete the collection with the specified name from the vector DB.</p>
+        <p>Delete the collection with the specified name from the vector DB.</p>
 
 
 <table class="field-list">
@@ -521,7 +535,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
 
     <div class="doc doc-contents ">
 
-      <p>Delete documents from the specified collection in the vector DB.</p>
+        <p>Delete documents from the specified collection in the vector DB.</p>
 
 
 <table class="field-list">
@@ -599,7 +613,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
 
     <div class="doc doc-contents ">
 
-      <p>Get the collection for the vector DB or create it if it doesn't already exist.</p>
+        <p>Get the collection for the vector DB or create it if it doesn't already exist.</p>
 
 
 <table class="field-list">
@@ -667,7 +681,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
 
     <div class="doc doc-contents ">
 
-      <p>Insert the given documents into the specified collection in the vector DB.</p>
+        <p>Insert the given documents into the specified collection in the vector DB.</p>
 
 
 <table class="field-list">
@@ -745,7 +759,7 @@ metadata (Optional[dict]): optional information about the chunk of text</p>
 
     <div class="doc doc-contents ">
 
-      <p>Insert the given documents into the specified collection in the vector DB, updating any
+        <p>Insert the given documents into the specified collection in the vector DB, updating any
 documents that already exist in the collection.</p>
 
 
@@ -826,7 +840,7 @@ documents that already exist in the collection.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Retrieve documents from the specified collection in the vector DB using the given queries.</p>
+        <p>Retrieve documents from the specified collection in the vector DB using the given queries.</p>
 
 
 <table class="field-list">
@@ -958,7 +972,7 @@ documents that already exist in the collection.</p>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../lang_chain_wise_agent_vector_db/" class="btn btn-neutral float-left" title="lang_chain_wise_agent_vector_db"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../../wise_agent/" class="btn btn-neutral float-right" title="wise_agent">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../wise_agent_messaging/" class="btn btn-neutral float-right" title="wise_agent_messaging">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -984,7 +998,7 @@ documents that already exist in the collection.</p>
       <span><a href="../lang_chain_wise_agent_vector_db/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../../wise_agent/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../wise_agent_messaging/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

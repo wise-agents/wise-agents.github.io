@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Contributing - wise-agents Docs</title>
+    <title>How to contribute - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Contributing";
+        var mkdocs_page_name = "How to contribute";
         var mkdocs_page_input_path = "contributing.md";
         var mkdocs_page_url = null;
       </script>
@@ -50,7 +50,25 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">How to contribute</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#forking-the-project">Forking the Project</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#issues">Issues</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#good-first-issues">Good First Issues</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setting-up-your-developer-environment">Setting up your Developer Environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contributing-guidelines">Contributing Guidelines</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#code-reviews">Code Reviews</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#community">Community</a>
+    </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -73,6 +91,16 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/wiseagents/">wiseagents</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/collaboration_wise_agents/">collaboration_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/cli/wise_agent_cli/">wise_agent_cli</a>
@@ -80,6 +108,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/graphdb/">graphdb</a>
     <ul>
@@ -113,11 +143,13 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml_env/">yaml_env</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml_env/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -126,7 +158,7 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Contributing</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">How to contribute</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#forking-the-project">Forking the Project</a>
     </li>
@@ -166,7 +198,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">About</li>
-      <li class="breadcrumb-item active">Contributing</li>
+      <li class="breadcrumb-item active">How to contribute</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -189,7 +221,7 @@
 <h2 id="forking-the-project">Forking the Project</h2>
 <p>To contribute, you will first need to fork the <a href="https://github.com/wise-agents/wise-agents">wise-agents</a> repository. </p>
 <p>This can be done by looking in the top-right corner of the repository page and clicking "Fork".
-<img alt="fork" src="/docs/images/fork.jpg" /></p>
+<img alt="fork" src="/images/fork.jpg" /></p>
 <p>The next step is to clone your newly forked repository onto your local workspace. This can be done by going to your newly forked repository, which should be at <code>https://github.com/USERNAME/wise-agents</code>. </p>
 <p>Then, there will be a green button that says "Code". Click on that and copy the URL.</p>
 <p>Then, in your terminal, paste the following command:</p>
@@ -221,29 +253,57 @@
 <p>Create a Python virtual environment for the project.</p>
 <p>The venv module supports creating lightweight “virtual  environments”, each with their own independent set of Python packages installed in their site directories. A virtual environment is created on top of an existing Python installation, known as the virtual environment’s “base” Python, and may optionally be isolated from the packages in the base environment, so only those explicitly installed in the virtual environment are available.
 For more information about virtual environment see <a href="https://docs.python.org/3/library/venv.html">here</a></p>
-<p><code>python -m venv ./venv</code></p>
+<p><code>python -m venv .venv</code></p>
+<p>OR just using our Makefile</p>
+<p><code>make venv</code></p>
 </li>
 <li>
-<p>Activate the venv
-    <code>source .venv/bin/activate</code></p>
+<p>Activate the venv</p>
+<p><code>source .venv/bin/activate</code></p>
+<p>OR just using our Makefile</p>
+<p><code>make activate_venv</code></p>
 </li>
 <li>
 <p>Add a remote ref to upstream, for pulling future updates.
 For example:</p>
-<p><code>git remote add upstream https://github.com/wise-agents/wise-agents</code>
-5. To build <code>wise-agents</code> run:
-<code>bash
-TODO: waiting for makefile</code></p>
+<p><code>git remote add upstream https://github.com/wise-agents/wise-agents</code></p>
 </li>
 <li>
-<p>To skip the tests, use:</p>
-<p><code>bash
-TODO: waiting for makefile</code></p>
+<p>To build <code>wise-agents</code> run:</p>
+<p><code>make install</code></p>
+</li>
+<li>
+<p>To run the tests:</p>
+<ul>
+<li>
+<p>start artemis: set .env for artemis see <a href="../artemis/">artemis/README.MD</a>. Then start it using</p>
+<p><code>make artemis</code></p>
+</li>
+<li>
+<p>start graphdb: set .env for graphdb see <a href="../graphdb/">graphdb/README.MD</a>. Then start it using</p>
+<p><code>make graphdb</code></p>
+</li>
+<li>
+<p>start vectordb: set .env for vectordb see <a href="../vectordb/">vectordb/README.MD</a>. Then start it using</p>
+<p><code>make vectordb</code></p>
+</li>
+<li>
+<p>start LLM model serving: set .env for model-serving see <a href="../model-serving/">model-serving/README.MD</a>. Then start it using</p>
+<p><code>make model</code></p>
+</li>
+<li>
+<p>run the tests:</p>
+<p><code>make test</code></p>
+</li>
+</ul>
 </li>
 <li>
 <p>To run only a specific test, use:</p>
-<p><code>bash
-TODO: waiting for makefile</code></p>
+<ul>
+<li>If you want to run a single test you can specify the test with -k option: <code>pytest -k test_register_agents --log-cli-level=DEBUG</code></li>
+<li>You can also run all tests contained in a single file with the same option <code>pytest -k test_WiseAgentRegistry --log-cli-level=DEBUG</code></li>
+<li>Note the name of the file could be partial so for example <code>pytest -k test_yaml --log-cli-level=DEBUG</code> will run test contained in <code>tests/wiseagents/test_yaml_deserializer.py</code> and ``tests/wiseagents/test_yaml_serialization.py)</li>
+</ul>
 </li>
 </ol>
 <h2 id="contributing-guidelines">Contributing Guidelines</h2>
@@ -256,7 +316,26 @@ TODO: waiting for makefile</code></p>
 <p>Please link the issue you worked on in the description of your pull request and in your commit message. For example, for issue-125, the PR description and commit message could be: <code>Go through TODOs in the code and create issues for them  
 Fixes #125</code></p>
 </li>
+<li>
+<p>Your PR should include <a href="https://google.github.io/styleguide/pyguide.html">docstrings</a> for all functions and classes, as well as comments to help make your code easier to understand.</p>
+</li>
+<li>
+<p>Your PR should include <a href="https://github.com/wise-agents/wise-agents/tree/main/tests">tests</a> for the functionality that you are adding.</p>
+</li>
+<li>
+<p>Your PR should include appropriate <a href="https://github.com/wise-agents/wise-agents/tree/main/docs">documentation</a> for the functionality that you are adding. This could involve updating an existing section in the documentation or adding a new page in the documentation.</p>
+</li>
+<li>
+<p>Your PR should include an <a href="https://github.com/wise-agents/wise-agents/tree/main/examples">example</a> of how to use the new functionality that you are adding.</p>
+</li>
 </ol>
+<blockquote>
+<p>[!NOTE]
+There might be times where the documentation or example you need to add is a bit more involved. For cases like this, if
+the functionality you are adding is needed urgently (e.g., to allow someone else to work on a feature that depends on yours),
+you can create an issue to track the documentation or example to be added and make sure to reference this issue in your PR.
+This way, we can merge your PR while still ensuring that the documentation or example is added soon after.</p>
+</blockquote>
 <h2 id="code-reviews">Code Reviews</h2>
 <p>All submissions, including submissions by project members, need to be reviewed by at least one wise-agents committer before being merged.</p>
 <p>The <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews">GitHub Pull Request Review Process</a> is followed for every pull request.</p>

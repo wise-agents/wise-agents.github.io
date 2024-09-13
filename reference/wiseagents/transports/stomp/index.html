@@ -50,7 +50,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../wise_agents_architecture/">Wise Agents architecture</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../dev_quick_start/">Developer Quick Start</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
@@ -73,6 +73,16 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="../../">wiseagents</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../../agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/collaboration_wise_agents/">collaboration_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../cli/wise_agent_cli/">wise_agent_cli</a>
@@ -80,6 +90,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../graphdb/">graphdb</a>
     <ul>
@@ -115,11 +127,13 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../yaml_env/">yaml_env</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml_env/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +142,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">Contributing</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../license/">License</a>
                   </li>
@@ -195,11 +209,15 @@
               Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.WiseAgentTransport" href="../../#wiseagents.WiseAgentTransport">WiseAgentTransport</a></code></p>
 
 
-      <p>A transport for sending messages between agents using the STOMP protocol.</p>
+        <p>A transport for sending messages between agents using the STOMP protocol.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 55</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
 <span class="normal"> 56</span>
 <span class="normal"> 57</span>
 <span class="normal"> 58</span>
@@ -307,12 +325,13 @@
 <span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
-<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StompWiseAgentTransport</span><span class="p">(</span><span class="n">WiseAgentTransport</span><span class="p">):</span>
+<span class="normal">163</span>
+<span class="normal">164</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StompWiseAgentTransport</span><span class="p">(</span><span class="n">WiseAgentTransport</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A transport for sending messages between agents using the STOMP protocol.&#39;&#39;&#39;</span>
 
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!wiseagents.transport.StompWiseAgentTransport&#39;</span>
-    <span class="n">conn</span> <span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">conn2</span> <span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">request_conn</span> <span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">response_conn</span> <span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialize the transport.</span>
 
@@ -326,7 +345,7 @@
 
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="si">}</span><span class="s2">, port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="si">}</span><span class="s2">, agent_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_agent_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;host=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_host</span><span class="si">}</span><span class="s2">, port=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_port</span><span class="si">}</span><span class="s2">, agent_name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_agent_name</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Return the state of the transport. Removing the instance variable chain to avoid it is serialized/deserialized by pyyaml.&#39;&#39;&#39;</span>
@@ -335,6 +354,8 @@
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_response_receiver&#39;</span><span class="p">]</span>
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_event_receiver&#39;</span><span class="p">]</span>
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_error_receiver&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;request_conn&#39;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;response_conn&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">state</span> 
 
 
@@ -342,18 +363,20 @@
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Start the transport.</span>
 <span class="sd">        require the environment variables STOMP_USER and STOMP_PASSWORD to be set&#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()):</span>
+            <span class="k">return</span>
         <span class="n">hosts</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)]</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentRequestTopicListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentRequestTopicListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentResponseQueueListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentResponseQueueListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -363,14 +386,15 @@
 <span class="sd">            message (WiseAgentMessage): the message to send</span>
 <span class="sd">            dest_agent_name (str): the destination agent name&#39;&#39;&#39;</span>
         <span class="c1"># Send the message using the STOMP protocol</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending request </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">request_destination</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Send a response message to an agent.</span>
@@ -379,21 +403,21 @@
 <span class="sd">            message (WiseAgentMessage): the message to send</span>
 <span class="sd">            dest_agent_name (str): the destination agent name&#39;&#39;&#39;</span>
         <span class="c1"># Send the message using the STOMP protocol</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="n">response_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/response/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">response_destination</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">response_destination</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Stop the transport.&#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1">#unsubscribe from the request topic</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
             <span class="c1">#unsubscribe from the response queue</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
             <span class="c1"># Disconnect from the STOMP server</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 
 
     <span class="nd">@property</span>
@@ -445,7 +469,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the agent name.</p>
+        <p>Get the agent name.</p>
     </div>
 
 </div>
@@ -466,7 +490,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the host.</p>
+        <p>Get the host.</p>
     </div>
 
 </div>
@@ -487,7 +511,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the port.</p>
+        <p>Get the port.</p>
     </div>
 
 </div>
@@ -508,7 +532,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the request queue.</p>
+        <p>Get the request queue.</p>
     </div>
 
 </div>
@@ -529,7 +553,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the response queue.</p>
+        <p>Get the response queue.</p>
     </div>
 
 </div>
@@ -547,24 +571,28 @@
 
     <div class="doc doc-contents ">
 
-      <p>Return the state of the transport. Removing the instance variable chain to avoid it is serialized/deserialized by pyyaml.</p>
+        <p>Return the state of the transport. Removing the instance variable chain to avoid it is serialized/deserialized by pyyaml.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
 <span class="normal">77</span>
 <span class="normal">78</span>
 <span class="normal">79</span>
 <span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
+<span class="normal">81</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Return the state of the transport. Removing the instance variable chain to avoid it is serialized/deserialized by pyyaml.&#39;&#39;&#39;</span>
     <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_request_receiver&#39;</span><span class="p">]</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_response_receiver&#39;</span><span class="p">]</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_event_receiver&#39;</span><span class="p">]</span>
     <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;_error_receiver&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;request_conn&#39;</span><span class="p">]</span>
+    <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;response_conn&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">state</span> 
 </code></pre></div></td></tr></table></div>
             </details>
@@ -583,7 +611,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Initialize the transport.</p>
+        <p>Initialize the transport.</p>
 
 
 <table class="field-list">
@@ -627,16 +655,16 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Initialize the transport.</span>
 
 <span class="sd">    Args:</span>
@@ -663,7 +691,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Send a request message to an agent.</p>
+        <p>Send a request message to an agent.</p>
 
 
 <table class="field-list">
@@ -713,21 +741,23 @@
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
-<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">118</span>
+<span class="normal">119</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Send a request message to an agent.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        message (WiseAgentMessage): the message to send</span>
 <span class="sd">        dest_agent_name (str): the destination agent name&#39;&#39;&#39;</span>
     <span class="c1"># Send the message using the STOMP protocol</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">request_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/request/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending request </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">request_destination</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    
+    <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">request_destination</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -745,7 +775,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Send a response message to an agent.</p>
+        <p>Send a response message to an agent.</p>
 
 
 <table class="field-list">
@@ -781,8 +811,7 @@
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">120</span>
-<span class="normal">121</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">121</span>
 <span class="normal">122</span>
 <span class="normal">123</span>
 <span class="normal">124</span>
@@ -791,17 +820,18 @@
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
-<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="normal">130</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">send_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">WiseAgentMessage</span><span class="p">,</span> <span class="n">dest_agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Send a response message to an agent.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        message (WiseAgentMessage): the message to send</span>
 <span class="sd">        dest_agent_name (str): the destination agent name&#39;&#39;&#39;</span>
     <span class="c1"># Send the message using the STOMP protocol</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
     <span class="n">response_destination</span> <span class="o">=</span> <span class="s1">&#39;/queue/response/&#39;</span> <span class="o">+</span> <span class="n">dest_agent_name</span>    
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">response_destination</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">destination</span><span class="o">=</span><span class="n">response_destination</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -819,12 +849,14 @@
 
     <div class="doc doc-contents ">
 
-      <p>Start the transport.
+        <p>Start the transport.
 require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
 <span class="normal"> 87</span>
 <span class="normal"> 88</span>
 <span class="normal"> 89</span>
@@ -843,18 +875,20 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Start the transport.</span>
 <span class="sd">    require the environment variables STOMP_USER and STOMP_PASSWORD to be set&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">is_connected</span><span class="p">()):</span>
+        <span class="k">return</span>
     <span class="n">hosts</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)]</span> 
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentRequestTopicListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentRequestTopicListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span> <span class="o">=</span> <span class="n">stomp</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">host_and_ports</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span> <span class="n">heartbeats</span><span class="o">=</span><span class="p">(</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">))</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentResponseQueueListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">set_listener</span><span class="p">(</span><span class="s1">&#39;WiseAgentResponseQueueListener&#39;</span><span class="p">,</span> <span class="n">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_USER&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;STOMP_PASSWORD&quot;</span><span class="p">),</span> <span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">,</span> <span class="n">ack</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -872,12 +906,11 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Stop the transport.</p>
+        <p>Stop the transport.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
-<span class="normal">133</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">133</span>
 <span class="normal">134</span>
 <span class="normal">135</span>
 <span class="normal">136</span>
@@ -885,16 +918,17 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 <span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
-<span class="normal">141</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">141</span>
+<span class="normal">142</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Stop the transport.&#39;&#39;&#39;</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1">#unsubscribe from the request topic</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="c1">#unsubscribe from the response queue</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">unsubscribe</span><span class="p">(</span><span class="n">destination</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">response_queue</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="c1"># Disconnect from the STOMP server</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conn2</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request_conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_conn</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -925,13 +959,11 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
               Bases: <code><span title="stomp.ConnectionListener">ConnectionListener</span></code></p>
 
 
-      <p>A listener for the request queue.</p>
+        <p>A listener for the request queue.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -951,8 +983,7 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="n">stomp</span><span class="o">.</span><span class="n">ConnectionListener</span><span class="p">):</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentRequestQueueListener</span><span class="p">(</span><span class="n">stomp</span><span class="o">.</span><span class="n">ConnectionListener</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A listener for the request queue.&#39;&#39;&#39;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
@@ -972,9 +1003,6 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Handle a message.&#39;&#39;&#39;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message type: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling the callback function: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request_receiver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request_receiver</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -1002,17 +1030,17 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Initialize the listener.</p>
+        <p>Initialize the listener.</p>
 <p>Args:</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Initialize the listener.</span>
 
 <span class="sd">    Args:</span>
@@ -1035,13 +1063,13 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Handle an error.</p>
+        <p>Handle an error.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Handle an error.&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">error_receiver</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -1061,13 +1089,13 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Handle an event.</p>
+        <p>Handle an event.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Handle an event.&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">event_receiver</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -1087,20 +1115,14 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Handle a message.</p>
+        <p>Handle a message.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Handle a message.&#39;&#39;&#39;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message type: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling the callback function: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request_receiver</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">request_receiver</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1132,11 +1154,12 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
               Bases: <code><span title="stomp.ConnectionListener">ConnectionListener</span></code></p>
 
 
-      <p>A listener for the response queue.</p>
+        <p>A listener for the response queue.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
+<span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
@@ -1150,11 +1173,7 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="n">stomp</span><span class="o">.</span><span class="n">ConnectionListener</span><span class="p">):</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">WiseAgentResponseQueueListener</span><span class="p">(</span><span class="n">stomp</span><span class="o">.</span><span class="n">ConnectionListener</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A listener for the response queue.&#39;&#39;&#39;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Initialize the listener.</span>
@@ -1169,9 +1188,6 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Handle a message.&#39;&#39;&#39;</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message type: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">response_receiver</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
               </details>
@@ -1199,7 +1215,7 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Initialize the listener.</p>
+        <p>Initialize the listener.</p>
 
 
 <table class="field-list">
@@ -1227,12 +1243,12 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">36</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="n">WiseAgentTransport</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Initialize the listener.</span>
 
 <span class="sd">    Args:</span>
@@ -1255,13 +1271,13 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Handle an error.</p>
+        <p>Handle an error.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Handle an error.&#39;&#39;&#39;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">error_receiver</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -1281,20 +1297,14 @@ require the environment variables STOMP_USER and STOMP_PASSWORD to be set</p>
 
     <div class="doc doc-contents ">
 
-      <p>Handle a message.</p>
+        <p>Handle a message.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/transports/stomp.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">stomp</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Handle a message.&#39;&#39;&#39;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received message type: </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
     <span class="bp">self</span><span class="o">.</span><span class="n">transport</span><span class="o">.</span><span class="n">response_receiver</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
