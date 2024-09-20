@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Example 1 - wise-agents Docs</title>
+    <title>How To Create Custom Agents - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Example 1";
-        var mkdocs_page_input_path = "example_1.md";
+        var mkdocs_page_name = "How To Create Custom Agents";
+        var mkdocs_page_input_path = "custom_agents.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -54,27 +54,49 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">RAG Architecture</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../using_cli/">Using CLI</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
                   </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Examples</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Example 1</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">How To Create Custom Agents</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#implementing-the-process_request-method">Implementing the process_request method</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#implementing-the-process_response-method">Implementing the process_response method</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#implementing-the-process_error-method">Implementing the process_error method</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#implementing-the-process_event-method">Implementing the process_event method</a>
+    </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../example_2/">Example 2</a>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../agentic_chatbot/">Agentic chatbot</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sequential_coordinator_example/">Sequential Coordinator Example</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API Reference</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/wiseagents/">wiseagents</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/assistant/">assistant</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/coordinator_wise_agents/">coordinator_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/cli/wise_agent_cli/">wise_agent_cli</a>
@@ -82,6 +104,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/graphdb/">graphdb</a>
     <ul>
@@ -115,11 +139,15 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml/">yaml</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/wise_yaml_loader/">wise_yaml_loader</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +156,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing_lnk/">Contributing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -149,8 +177,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Examples</li>
-      <li class="breadcrumb-item active">Example 1</li>
+          <li class="breadcrumb-item">Details</li>
+      <li class="breadcrumb-item active">How To Create Custom Agents</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -159,14 +187,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="example-1">Example 1</h1>
-<p>TODO</p>
+                <h1 id="how-to-create-custom-agents">How To Create Custom Agents</h1>
+<p>Wise Agents provides some agent implementations out of the box in the <code>wiseagents.agents</code> package,
+but you can also create your own agents.</p>
+<p>To create a custom agent, you need to extend the <code>wiseagents.core.WiseAgent</code> class and implement 
+the following abstract methods from this class: <code>process_request</code>, <code>process_response</code>, <code>process_error</code>,
+and <code>process_event</code>. Let's take a closer look at these methods.</p>
+<h2 id="implementing-the-process_request-method">Implementing the <code>process_request</code> method</h2>
+<p><strong>Method signature:</strong></p>
+<pre><code>def process_request(self, request: WiseAgentMessage,
+                    conversation_history: List[ChatCompletionMessageParam]) -&gt; Optional[str]:
+</code></pre>
+<p>This method is used by the agent to process the given <code>request</code> message. It is invoked by
+<code>WiseAgent.handle_request</code>. This method should return the agent's response to the given request
+as a <code>str</code> or <code>None</code> if there is no response needed.</p>
+<p>When processing the request, the agent can make use of the given <code>conversation_history</code>,
+which is a <code>List</code> of <code>ChatCompletionMessageParam</code> objects. If there is a chat session associated
+with the request, this list will contain the message history. In particular, if the agent has
+been invoked by a <code>PhasedCoordinatorWiseAgent</code> or an <code>AssistantAgent</code>, there will be a chat session
+associated with the request. The agent can make use of this conversation history when calling its
+<code>WiseAgentLLM</code>'s <code>process_chat_completion</code> method. If there isn't a chat session associated with
+the request, the <code>conversation_history</code> list will be empty.</p>
+<p>The response returned by the <code>process_request</code> method will be used by <code>WiseAgent.handle_request</code>
+to create and send a message to the appropriate agent. This destination agent will depend on the
+type of collaboration that the agent is involved in. For example, if the agent has been invoked
+by a <code>PhasedCoordinatorWiseAgent</code> or an <code>AssistantAgent</code>, the response message will be sent back
+to that agent and the conversation history will be updated with the response as well. If the agent
+is involved in sequential collaboration, the response will be sent to either the next agent in the
+sequence or back to the original requester if there are no more agents remaining.</p>
+<h2 id="implementing-the-process_response-method">Implementing the <code>process_response</code> method</h2>
+<p><strong>Method signature:</strong></p>
+<pre><code>def process_response(self, message: WiseAgentMessage) -&gt; bool:
+</code></pre>
+<p>This method is used by the agent to process a response <code>message</code> that it has received from another agent,
+i.e., this method is invoked after this agent has sent a request to another agent and receives a response
+message back from the other agent. This method should return <code>True</code> if the given message was processed
+successfully and <code>False</code> otherwise.</p>
+<h2 id="implementing-the-process_error-method">Implementing the <code>process_error</code> method</h2>
+<p><strong>Method signature:</strong></p>
+<pre><code>def process_error(self, error: Exception) -&gt; bool:
+</code></pre>
+<p>This method is used by the agent to process an error. This method should return <code>True</code> if the given
+error was process successfully and <code>False</code> otherwise.</p>
+<h2 id="implementing-the-process_event-method">Implementing the <code>process_event</code> method</h2>
+<p><strong>Method signature:</strong></p>
+<pre><code>def process_event(self, event: WiseAgentEvent) -&gt; bool:
+</code></pre>
+<p>This method will be used by an agent to process an event. The <code>WiseAgentEvent</code> class is still under
+construction (keep an eye on https://github.com/wise-agents/wise-agents/issues/8 for future updates).
+For now, this method can be implemented by simply using a <code>pass</code> statement as the method body.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../declare_agents/" class="btn btn-neutral float-left" title="Declare agents in YAML"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../example_2/" class="btn btn-neutral float-right" title="Example 2">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../agentic_chatbot/" class="btn btn-neutral float-right" title="Agentic chatbot">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -192,7 +267,7 @@
       <span><a href="../declare_agents/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../example_2/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../agentic_chatbot/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

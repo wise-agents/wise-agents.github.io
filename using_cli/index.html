@@ -59,22 +59,94 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Using CLI</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#distributed-wise-agents-cli">Distributed Wise Agents CLI</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#distributed-architecture">Distributed Architecture</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#table-of-contents">Table of Contents</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#running-the-cli">Running the CLI</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#available-commands">Available Commands</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#help-or-h">/help or /h</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#load-agents-or-l">/load-agents or /l</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#reload-agents-or-r">/reload-agents or /r</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#agents-or-a">/agents or /a</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#send-or-s">/send or /s</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#chat-or-c">/chat or /c</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#trace-or-t">/trace or /t</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#exit-or-x">/exit or /x</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#agent-configuration">Agent Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#yaml-configuration-file">YAML Configuration File</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#loading-agents">Loading Agents</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sending-a-message-to-an-agent">Sending a Message to an Agent</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#starting-a-chat-session">Starting a Chat Session</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_agents/">How To Create Custom Agents</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../example_1/">Example 1</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../agentic_chatbot/">Agentic chatbot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../example_2/">Example 2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../sequential_coordinator_example/">Sequential Coordinator Example</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API Reference</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/wiseagents/">wiseagents</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/assistant/">assistant</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/coordinator_wise_agents/">coordinator_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/cli/wise_agent_cli/">wise_agent_cli</a>
@@ -82,6 +154,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/graphdb/">graphdb</a>
     <ul>
@@ -115,11 +189,15 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml/">yaml</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/wise_yaml_loader/">wise_yaml_loader</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +206,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing_lnk/">Contributing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -159,8 +237,244 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="using-cli">Using CLI</h1>
-<p>TODO</p>
+                <h1 id="wise-agents-cli-documentation">Wise Agents CLI Documentation</h1>
+<h2 id="introduction">Introduction</h2>
+<p>The Wise Agents CLI is a command-line interface for interacting with a multi-agent system built using the <code>wiseagents</code> framework. This tool allows you to:</p>
+<ul>
+<li>Load agents from YAML configuration files.</li>
+<li>Manage and reload agents dynamically.</li>
+<li>Send messages between agents.</li>
+<li>Trace message interactions.</li>
+<li>Start interactive chat sessions with agents.</li>
+</ul>
+<p>This documentation will guide you through the installation, setup, and usage of the Wise Agents CLI.</p>
+<h2 id="distributed-wise-agents-cli">Distributed Wise Agents CLI</h2>
+<p>The Wise Agents CLI can be configured to start multiple instances of agents across different processes, network nodes, or even in separate pods (in Kubernetes environments). To enable this distributed architecture, you need to configure Redis for the <code>WiseAgentRegistry</code>. By setting up Redis, you allow the agents to share a common registry and message context, enabling asynchronous communication across distributed systems.</p>
+<h3 id="distributed-architecture">Distributed Architecture</h3>
+<p>To learn more about how the CLI and agents can be scaled and managed in a distributed environment, please refer to the <a href="../wise_agents_architecture/#distributed-architecture">"Distributed Architecture" paragraph in Wise Agents Architecture Document</a>. This document outlines the key components, such as Redis integration, inter-agent communication, and load balancing strategies for deploying agents on different network nodes or cloud environments.</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#installation-and-setup">Installation and Setup</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#installing-dependencies">Installing Dependencies</a></li>
+<li><a href="#running-the-cli">Running the CLI</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#available-commands">Available Commands</a><ul>
+<li><a href="#help-or-h"><code>/help</code> or <code>/h</code></a></li>
+<li><a href="#load-agents-or-l"><code>/load-agents</code> or <code>/l</code></a></li>
+<li><a href="#reload-agents-or-r"><code>/reload-agents</code> or <code>/r</code></a></li>
+<li><a href="#agents-or-a"><code>/agents</code> or <code>/a</code></a></li>
+<li><a href="#send-or-s"><code>/send</code> or <code>/s</code></a></li>
+<li><a href="#chat-or-c"><code>/chat</code> or <code>/c</code></a></li>
+<li><a href="#trace-or-t"><code>/trace</code> or <code>/t</code></a></li>
+<li><a href="#exit-or-x"><code>/exit</code> or <code>/x</code></a></li>
+</ul>
+</li>
+<li><a href="#agent-configuration">Agent Configuration</a></li>
+<li><a href="#yaml-configuration-file">YAML Configuration File</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#loading-agents">Loading Agents</a></li>
+<li><a href="#sending-a-message-to-an-agent">Sending a Message to an Agent</a></li>
+<li><a href="#starting-a-chat-session">Starting a Chat Session</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<hr />
+<h3 id="running-the-cli">Running the CLI</h3>
+<p>To start the Wise Agents CLI, run the script from your terminal:</p>
+<pre><code class="language-bash">python src/wiseagents/cli/wise_agent_cli.py [path_to_agents_file.yaml]
+</code></pre>
+<ul>
+<li>The <code>[path_to_agents_file.yaml]</code> is optional. If provided, the CLI will automatically load agents from the specified YAML file upon startup.</li>
+</ul>
+<hr />
+<h2 id="usage">Usage</h2>
+<p>Once the CLI is running, you can interact with it using various commands. The CLI operates in a loop, prompting you for input after each command execution.</p>
+<h3 id="available-commands">Available Commands</h3>
+<h4 id="help-or-h"><code>/help</code> or <code>/h</code></h4>
+<p>Displays a list of available commands and their descriptions.</p>
+<pre><code class="language-plaintext">/(l)oad-agents: Load agents from file
+/(r)eload agents: Reload agents from file
+/(c)hat: Start a chat
+/(t)race: Show the message trace
+/e(x)it: Exit the application
+/(h)elp: Show the available commands
+(a)gents: Show the registered agents
+(s)end: Send a message to an agent
+</code></pre>
+<h4 id="load-agents-or-l"><code>/load-agents</code> or <code>/l</code></h4>
+<p>Loads agents from a YAML configuration file.</p>
+<ul>
+<li><strong>Usage</strong>: Type <code>/load-agents</code> or <code>/l</code> and press ENTER.</li>
+<li><strong>File Path Prompt</strong>: If no file path was provided when starting the CLI, you will be prompted to enter one.</li>
+<li>Press ENTER without typing anything to use the default path: <code>src/wiseagents/cli/test-multiple.yaml</code>.</li>
+<li><strong>Agent Management</strong>: Starts all loaded agents</li>
+</ul>
+<h4 id="reload-agents-or-r"><code>/reload-agents</code> or <code>/r</code></h4>
+<p>Reloads agents from the current or a new YAML configuration file. This is very useful to reload agents when you are tweaking the configuration or the system prompt</p>
+<ul>
+<li><strong>Usage</strong>: Type <code>/reload-agents</code> or <code>/r</code> and press ENTER.</li>
+<li><strong>File Path Prompt</strong>: You can provide a new file path when prompted.</li>
+<li><strong>Agent Management</strong>: Stops all currently running agents before reloading.</li>
+</ul>
+<h4 id="agents-or-a"><code>/agents</code> or <code>/a</code></h4>
+<p>Displays a list of all registered agents along with their descriptions.</p>
+<h4 id="send-or-s"><code>/send</code> or <code>/s</code></h4>
+<p>Sends a message to a specific agent.</p>
+<ul>
+<li><strong>Usage</strong>:</li>
+<li>Type <code>/send</code> or <code>/s</code> and press ENTER.</li>
+<li>Enter the agent's name when prompted.</li>
+<li>Enter the message you wish to send.</li>
+</ul>
+<h4 id="chat-or-c"><code>/chat</code> or <code>/c</code></h4>
+<p>Starts an interactive chat session with an agent.</p>
+<ul>
+<li><strong>Usage</strong>:</li>
+<li>Type <code>/chat</code> or <code>/c</code> and press ENTER.</li>
+<li>Enter messages when prompted.</li>
+<li>Type <code>/back</code> to exit the chat session.</li>
+</ul>
+<p><em>Note: This command assumes that an agent named <code>PassThroughClientAgent1</code> is available and has been set up to handle chat interactions.</em></p>
+<h4 id="trace-or-t"><code>/trace</code> or <code>/t</code></h4>
+<p>Displays the message trace, showing all messages that have been sent between agents.</p>
+<h4 id="exit-or-x"><code>/exit</code> or <code>/x</code></h4>
+<p>Exits the CLI and stops all running agents.</p>
+<hr />
+<h2 id="agent-configuration">Agent Configuration</h2>
+<h3 id="yaml-configuration-file">YAML Configuration File</h3>
+<p>Agents are defined in a YAML file, which the CLI loads to create and start agents. Each agent is specified with a YAML document starting with a tag that indicates the agent class.</p>
+<p><strong>Example YAML Configuration:</strong></p>
+<pre><code class="language-yaml">--- !wiseagents.agents.PassThroughClientAgent
+name: PassThroughClientAgent1
+# Additional agent-specific configuration...
+</code></pre>
+<ul>
+<li>The <code>!wiseagents.agents.PassThroughClientAgent</code> tag indicates the agent class.</li>
+<li>The <code>name</code> field specifies the unique name of the agent.</li>
+<li>Additional configuration parameters can be added as needed.</li>
+</ul>
+<p><strong>Importing Agent Classes:</strong></p>
+<p>When loading agents, the CLI attempts to import the necessary Python modules based on the tags in the YAML file. Ensure that:</p>
+<ul>
+<li>The agent classes are available in the Python path.</li>
+<li>The modules can be imported without errors.</li>
+</ul>
+<hr />
+<h2 id="examples">Examples</h2>
+<h3 id="loading-agents">Loading Agents</h3>
+<ol>
+<li><strong>Start the CLI</strong> without specifying a file:</li>
+</ol>
+<p><code>bash
+   python src/wiseagents/cli/wise_agent_cli.py</code></p>
+<ol>
+<li><strong>At the prompt</strong>, type:</li>
+</ol>
+<p><code>plaintext
+   /load-agents</code></p>
+<p>or simply:</p>
+<p><code>plaintext
+   /l</code></p>
+<ol>
+<li><strong>Enter the file path</strong> when prompted:</li>
+</ol>
+<p><code>plaintext
+   Enter the file path (ENTER for default src/wiseagents/cli/test-multiple.yaml):</code></p>
+<ul>
+<li>Press ENTER to use the default path.</li>
+<li>
+<p>Or enter a custom path to your YAML configuration file.</p>
+</li>
+<li>
+<p><strong>Agents are loaded</strong>:</p>
+</li>
+</ul>
+<p>The CLI will import necessary modules and load agents, displaying messages like:</p>
+<p><code>plaintext
+   Loaded agent: PassThroughClientAgent1
+   registered agents= {'PassThroughClientAgent1': 'Description of agent'}</code></p>
+<h3 id="sending-a-message-to-an-agent">Sending a Message to an Agent</h3>
+<ol>
+<li>
+<p><strong>Ensure agents are loaded</strong> and running.</p>
+</li>
+<li>
+<p><strong>Type the send command</strong>:</p>
+</li>
+</ol>
+<p><code>plaintext
+   /send</code></p>
+<p>or:</p>
+<p><code>plaintext
+   /s</code></p>
+<ol>
+<li><strong>Enter the agent's name</strong> when prompted:</li>
+</ol>
+<p><code>plaintext
+   Enter the agent name:</code></p>
+<ul>
+<li>
+<p>Example: <code>LLMOnlyWiseAgent2</code></p>
+</li>
+<li>
+<p><strong>Enter your message</strong>:</p>
+</li>
+</ul>
+<p><code>plaintext
+   Enter the message:</code></p>
+<ul>
+<li>
+<p>Example: <code>Hello, how are you?</code></p>
+</li>
+<li>
+<p><strong>Message is sent</strong>:</p>
+</li>
+</ul>
+<p>The CLI will handle sending the message and waiting for a response.</p>
+<h3 id="starting-a-chat-session">Starting a Chat Session</h3>
+<ol>
+<li>
+<p><strong>Ensure <code>PassThroughClientAgent1</code></strong> is loaded and running.</p>
+</li>
+<li>
+<p><strong>Type the chat command</strong>:</p>
+</li>
+</ol>
+<p><code>plaintext
+   /chat</code></p>
+<p>or:</p>
+<p><code>plaintext
+   /c</code></p>
+<ol>
+<li><strong>Enter messages</strong> when prompted:</li>
+</ol>
+<p><code>plaintext
+   Enter a message (or /back):</code></p>
+<ul>
+<li>Type your message and press ENTER.</li>
+<li>
+<p>Repeat to continue the conversation.</p>
+</li>
+<li>
+<p><strong>Exit the chat</strong>:</p>
+</li>
+<li>
+<p>Type <code>/back</code> and press ENTER to return to the main command prompt.</p>
+</li>
+</ul>
+<hr />
+<h2 id="notes">Notes</h2>
+<ul>
+<li><strong>Agent Names</strong>: Ensure that agent names used in commands match those defined in your YAML configuration file.</li>
+<li><strong>Module Importing</strong>: The CLI attempts to import agent classes based on YAML tags. Modules must be importable and accessible in your Python environment.</li>
+<li><strong>Default File Path</strong>: The default file path is set to <code>src/wiseagents/cli/test-multiple.yaml</code>. Modify this path as needed for your setup.</li>
+</ul>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The Wise Agents CLI provides a flexible and interactive way to manage and communicate with agents in a multi-agent system. By leveraging YAML configuration files and a straightforward command interface, you can simulate complex interactions, test agent behaviors, and monitor communications within the system.</p>
+<p>For further customization, you can modify the agents and their configurations, extend the CLI with additional commands, or integrate it into larger applications.</p>
               
             </div>
           </div><footer>

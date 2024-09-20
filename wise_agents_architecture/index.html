@@ -58,6 +58,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#llm-integration">LLM Integration</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#distributed-architecture">Distributed architecture</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
@@ -71,18 +73,32 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_agents/">How To Create Custom Agents</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../example_1/">Example 1</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../agentic_chatbot/">Agentic chatbot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../example_2/">Example 2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../sequential_coordinator_example/">Sequential Coordinator Example</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API Reference</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../reference/wiseagents/">wiseagents</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/assistant/">assistant</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/coordinator_wise_agents/">coordinator_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/cli/wise_agent_cli/">wise_agent_cli</a>
@@ -90,6 +106,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/graphdb/">graphdb</a>
     <ul>
@@ -123,11 +141,15 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml/">yaml</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/wise_yaml_loader/">wise_yaml_loader</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -136,7 +158,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing_lnk/">Contributing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
                   </li>
@@ -215,6 +237,22 @@
 </ul>
 <h2 id="llm-integration">LLM Integration</h2>
 <p>As mentioned earlier, LLM integration is achieved through a client-side implementation of the OpenAI API. The responsibility for tracking messages exchanged with the LLM lies with the agent, not the LLM integration layer. This design choice makes the WiseAgent framework agnostic to the specific LLM model used, as long as the model and inference system support the OpenAI API. This approach allows different agents to potentially use different models while sharing a unified memory. For more information, see <a href="../rag_architecture/">RAG Architecture</a>.</p>
+<h2 id="distributed-architecture">Distributed architecture</h2>
+<p>As said above, wise-agents has been designed as a fully distributable cloud-ready architecture. For this reason, each agent can ideally run in a different pod and communicate with others through asynchronous communication based on STOMP protocol.
+All agents use a shared memory to access the <strong>Agent's Registry</strong> and <strong>Agent's Context</strong>. This is done by a shared Redis server, which can be configured with a file named <code>registry_config.yaml</code> from the current directory. If not found in current directory it is loaded from <code>~/.wise-agents/registry_config.yaml</code>. The file looks like:</p>
+<pre><code class="language-yaml">use_redis: true #if falseredis not used and all agents need to be in the same process
+redis_host: localhost
+redis_port: 6379
+redis_db: wise-agents
+redis_ssl : false #ssl connection. if it's true you need to set also all the following parameters
+redis_username: default
+redis_password: secret
+redis_ssl_certfile: &quot;./redis_user.crt&quot;
+redis_ssl_keyfile: &quot;./redis_user_private.key&quot;
+redis_ssl_ca_certs: &quot;./redis_ca.pem&quot;
+</code></pre>
+<p><strong>Note:</strong> To configure SSL you need Redis enterprise</p>
+<p>For more information about redis connection please refer to <a href="https://redis.io/learn/howtos/security">official redis documentation</a> </p>
               
             </div>
           </div><footer>

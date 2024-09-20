@@ -61,18 +61,32 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../declare_agents/">Declare agents in YAML</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../custom_agents/">How To Create Custom Agents</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../example_1/">Example 1</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../agentic_chatbot/">Agentic chatbot</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../example_2/">Example 2</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../sequential_coordinator_example/">Sequential Coordinator Example</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">API Reference</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="../../">wiseagents</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../../agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/assistant/">assistant</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/coordinator_wise_agents/">coordinator_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../cli/">cli</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../cli/wise_agent_cli/">wise_agent_cli</a>
@@ -80,6 +94,8 @@
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../core/">core</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../graphdb/">graphdb</a>
     <ul>
@@ -115,11 +131,15 @@
                 </li>
     </ul>
                 </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent/">wise_agent</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_impl/">wise_agent_impl</a>
-                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../yaml/">yaml</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml/wise_yaml_loader/">wise_yaml_loader</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
                 </li>
     </ul>
                   </li>
@@ -128,7 +148,7 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../community/">Community</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing/">How to contribute</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../contributing_lnk/">Contributing</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../license/">License</a>
                   </li>
@@ -195,7 +215,7 @@
               Bases: <code><a class="autorefs autorefs-internal" title="wiseagents.llm.wise_agent_LLM.WiseAgentLLM" href="../wise_agent_LLM/#wiseagents.llm.wise_agent_LLM.WiseAgentLLM">WiseAgentLLM</a></code></p>
 
 
-      <p>Extend WiseAgentLLM to support remote execution of WiseAgentLLM on a remote machine.</p>
+        <p>Extend WiseAgentLLM to support remote execution of WiseAgentLLM on a remote machine.</p>
 
               <details class="quote">
                 <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
@@ -311,7 +331,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Get the remote address.</p>
+        <p>Get the remote address.</p>
     </div>
 
 </div>
@@ -329,7 +349,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Return a string representation of the agent.</p>
+        <p>Return a string representation of the agent.</p>
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/wise_agent_remote_LLM.py</code></summary>
@@ -359,7 +379,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Process a chat completion. This method should be implemented by subclasses.
+        <p>Process a chat completion. This method should be implemented by subclasses.
 The context and state is passed in input and returned as part of the output.
 Deal with the messages and tools is responsibility of the caller.</p>
 
@@ -470,7 +490,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
 
     <div class="doc doc-contents ">
 
-      <p>Process a single prompt. This method should be implemented by subclasses.
+        <p>Process a single prompt. This method should be implemented by subclasses.
 The single prompt is processed and the result is returned, all the context and state is maintained locally in the method</p>
 
 

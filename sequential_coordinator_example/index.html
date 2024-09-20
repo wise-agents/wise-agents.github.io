@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Sequential Coordinator Example - wise-agents Docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Sequential Coordinator Example";
+        var mkdocs_page_input_path = "sequential_coordinator_example.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> wise-agents Docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../multi_agents/">What are AI Agents</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../wise_agents_architecture/">Wise Agents architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing/">How to contribute</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Details</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">RAG Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../using_cli/">Using CLI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../custom_agents/">How To Create Custom Agents</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../agentic_chatbot/">Agentic chatbot</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Sequential Coordinator Example</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#example-overview">Example Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-the-example">Running the Example</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#step-1-clone-the-repository">Step 1: Clone the Repository</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-2-configure-and-start-redis">Step 2: Configure and Start Redis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-3-start-artemis">Step 3: Start artemis</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-4-start-ollama-with-llama-31">Step 4: Start Ollama with Llama 3.1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-5-start-the-intelligent-agent">Step 5: Start the Intelligent Agent</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-6-start-the-web-interface-agent">Step 6: Start the Web Interface Agent</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-7-interaction">Step 7: Interaction</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#step-8-experiment">Step 8: Experiment</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#understanding-the-yaml-configuration">Understanding the YAML Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../reference/wiseagents/">wiseagents</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/agents/">agents</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/assistant/">assistant</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/coordinator_wise_agents/">coordinator_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/rag_wise_agents/">rag_wise_agents</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/agents/utility_wise_agents/">utility_wise_agents</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/cli/">cli</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/cli/wise_agent_cli/">wise_agent_cli</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/constants/">constants</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/core/">core</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/graphdb/">graphdb</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/graphdb/lang_chain_wise_agent_graph_db/">lang_chain_wise_agent_graph_db</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/graphdb/wise_agent_graph_db/">wise_agent_graph_db</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/llm/">llm</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/llm/openai_API_wise_agent_LLM/">openai_API_wise_agent_LLM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/llm/wise_agent_LLM/">wise_agent_LLM</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/llm/wise_agent_remote_LLM/">wise_agent_remote_LLM</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/transports/">transports</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/transports/stomp/">stomp</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/vectordb/">vectordb</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/vectordb/lang_chain_wise_agent_vector_db/">lang_chain_wise_agent_vector_db</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/vectordb/wise_agent_vector_db/">wise_agent_vector_db</a>
+                </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/wise_agent_messaging/">wise_agent_messaging</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml/">yaml</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/wise_yaml_loader/">wise_yaml_loader</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/yaml_utils/">yaml_utils</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../community/">Community</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contributing_lnk/">Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../security/">Security</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">wise-agents Docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Examples</li>
+      <li class="breadcrumb-item active">Sequential Coordinator Example</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!-- BEGIN INCLUDE ../examples/sequential_coordinator/README.md -->
+
+<h1 id="sequential-coordinator-example-answer-and-translate-chatbot">Sequential Coordinator Example: Answer and Translate Chatbot</h1>
+<p>This guide walks you through running a practical example of a multi-agent system using Wise Agents. In this example, four agents (a web interface agent, a sequential agent coordinator, and two intelligent agents) are started, allowing you to experiment with agent communication and interaction in a simulated environment, with a sequential coordination.</p>
+<h2 id="example-overview">Example Overview</h2>
+<p>The example consists of four agents:</p>
+<ol>
+<li><strong>Web Interface Agent</strong>: Simulates a web-based client for interacting with coordinator agent.</li>
+<li><strong>Literature Agent</strong>: Handles requests and provides intelligent responses. Its system message says: 
+<em>"You are an english literature expert. Answer questions about english literature. Try to give context to your answers and provide quote from the books described. Your user is a native english speaker, with limited background in english literature."</em></li>
+<li><strong>Translator Agent</strong>: Handles requests and provides intelligent responses. Its system message says: 
+<em>"You are an expert translator from english to italian. Translate the provided text from english to italian. "</em>
+4<em> </em><em>SequentialCoordinator</em>*: Take care of coordinating the request handling from the user delagating the work to other agents in a predetermined order.</li>
+</ol>
+<p>These agents are defined in YAML configuration files located in the <code>examples/sequential_coordinator</code> directory.</p>
+<h2 id="running-the-example">Running the Example</h2>
+<h3 id="step-1-clone-the-repository">Step 1: Clone the Repository</h3>
+<p>If you haven't already, clone the Wise Agents repository from GitHub:</p>
+<pre><code class="language-bash">git clone https://github.com/wise-agents/wise-agents.git
+cd wise-agents
+</code></pre>
+<h3 id="step-2-configure-and-start-redis">Step 2: Configure and Start Redis</h3>
+<p>In this step, we will set up Redis for agent context and registry.</p>
+<ol>
+<li><strong>Create a hidden directory <code>.wise-agents</code></strong> in the root of your project:</li>
+</ol>
+<p><code>bash
+   mkdir .wise-agents</code></p>
+<ol>
+<li><strong>Copy the Redis configuration file</strong> as shown in the <a href="https://github.com/wise-agents/wise-agents/tree/main/.wise-agents"><code>.wise-agents</code> directory</a> from the GitHub repo. Create a file named <code>redis-config.yaml</code> inside <code>.wise-agents</code>:</li>
+</ol>
+<p><code>yaml
+   redis:
+     host: localhost
+     port: 6379</code></p>
+<ol>
+<li><strong>Ensure Redis is installed and running</strong>. You can start redis as podman/docker image following instruction in <a href="../redis/README.MD">redis README.MD</a></li>
+</ol>
+<h3 id="step-3-start-artemis">Step 3: Start artemis</h3>
+<p>To support async communication between agents you need to have artemis up and running</p>
+<ol>
+<li>
+<p>Start artemis podman/docker image following instructions in <a href="../artemis/README.MD">artemis README.MD</a></p>
+</li>
+<li>
+<p>Set the environment variables for artemis secure login. If you haven't changed any configuration, starting artemis following the previous point instructions they are:</p>
+</li>
+</ol>
+<pre><code class="language-bash">export STOMP_USER=artemis
+export STOMP_PASSWORD=artemis
+</code></pre>
+<h3 id="step-4-start-ollama-with-llama-31">Step 4: Start Ollama with Llama 3.1</h3>
+<p>To support the Llama model, you need to ensure that Ollama is installed and running:</p>
+<ol>
+<li>
+<p><strong>Install Ollama</strong> if it’s not installed already by following the <a href="https://ollama.com/../examples/sequential_coordinator">Ollama installation instructions</a>.</p>
+</li>
+<li>
+<p><strong>Start Ollama with Llama 3.1</strong>:</p>
+</li>
+</ol>
+<p><code>bash
+   ollama run llama3.1</code></p>
+<p>This will load the Llama 3.1 model into Ollama, which is necessary for running the intelligent agent.</p>
+<h3 id="step-5-start-the-intelligent-agent">Step 5: Start the Intelligent Agent</h3>
+<p>In a first console, run the intelligent agents and coordinator agent, also from the project’s home directory, using the following command:</p>
+<pre><code class="language-bash">python src/wiseagents/cli/wise_agent_cli.py examples/sequential_coordinator/intelligent-agent.yaml
+</code></pre>
+<p>This will initialize the intelligent agents and coordinator agent, which will be ready to respond to requests sent by the web interface agent.</p>
+<h3 id="step-6-start-the-web-interface-agent">Step 6: Start the Web Interface Agent</h3>
+<p>In your second console, navigate to the project’s home directory and run the web interface agent using the provided YAML configuration file:</p>
+<pre><code class="language-bash">python src/wiseagents/cli/wise_agent_cli.py examples/sequential_coordinator/web-interface.yaml
+</code></pre>
+<p>This will initialize the Assistant agent with its web interface. You should see logs indicating that the agent is started and waiting for requests. You will see in the console also a web server listening at <a href="http://127.0.0.1:7860/../examples/sequential_coordinator">http://127.0.0.1:7860</a></p>
+<pre><code class="language-plain-text">Running on local URL:  http://127.0.0.1:7860
+</code></pre>
+<h3 id="step-7-interaction">Step 7: Interaction</h3>
+<p>Once all agents are up and running, you can use the web interface agent as a chatbot and it will start sending requests to the intelligent agent. You will be able to see the interaction between the agents through the logs in both consoles.
+Try as an example to ask something like "Can you give me detailed information about Harry Potter". You will get the detailed information about Rowling's books translated in Italian :)</p>
+<h3 id="step-8-experiment">Step 8: Experiment</h3>
+<p>You can experiment with different agent configurations or modify the agent behaviors by editing the YAML files located in the <code>examples/memory_agentic_chatbot</code> directory. These configuration files define the agents' properties, including memory, communication methods, and response patterns. You can do that without restarting everything, just edit the yaml file(s) and use CLI's /reload command (see our documentation for more details on how to use CLI)</p>
+<h2 id="understanding-the-yaml-configuration">Understanding the YAML Configuration</h2>
+<ul>
+<li><strong>web-interface.yaml</strong>: Defines the web interface agent, which serves as the client interface for interacting with other agents.</li>
+<li><strong>intelligent-agents.yaml</strong>: Defines the intelligent agents and coordinator agent, which processes the requests and generates responses based on the provided input.</li>
+</ul>
+<p>These YAML files include the specific <code>WiseAgent</code> classes and configuration needed to run the agents. Feel free to explore and modify these files to customize the agents' behavior.</p>
+<h2 id="additional-resources">Additional Resources</h2>
+<p>For more information about the architecture and advanced configurations of wise-agents, refer to the <a href="../examples/sequential_coordinator/wise_agents_architecture.md">Wise Agents Architecture Document</a>, which provides insights into how the system can be scaled and deployed in distributed environments.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>By following these steps, you have successfully run a simple sequential coordinated multi-agent chatbot using Wise Agents. You can now explore further by modifying agent behaviors, adding new agents, or experimenting with different message flows.</p>
+<p>For any further assistance, feel free to refer to the official Wise Agents documentation or reach out to the repository maintainers.</p>
+<!-- END INCLUDE -->
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../agentic_chatbot/" class="btn btn-neutral float-left" title="Agentic chatbot"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../reference/wiseagents/" class="btn btn-neutral float-right" title="wiseagents">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../agentic_chatbot/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../reference/wiseagents/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
