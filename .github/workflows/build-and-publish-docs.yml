@@ -1,4 +1,4 @@
-name: Build and Test Workflow Run
+name: Publish Documentation
 
 on:
   workflow_dispatch:
