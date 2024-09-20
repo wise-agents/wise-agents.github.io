@@ -8,6 +8,10 @@ on:
 env:
   BRANCH: website
 
+permissions:
+  contents: write
+  pages: write
+
 # Only run the latest job
 concurrency:
   group: '${{ github.workflow }} - ${{ github.env.BRANCH }}'
