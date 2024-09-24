@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Declare agents in YAML - wise-agents Docs</title>
+    <title>Agent Coordination - wise-agents Docs</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Declare agents in YAML";
-        var mkdocs_page_input_path = "declare_agents.md";
+        var mkdocs_page_name = "Agent Coordination";
+        var mkdocs_page_input_path = "agent_coordination.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -55,15 +55,39 @@
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../agent_coordination/">Agent Coordination</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Agent Coordination</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-sequential-coordination">What is sequential coordination?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-make-use-of-sequential-coordination">How to make use of sequential coordination?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#want-to-see-an-example">Want to see an example?</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-phased-coordination">What is phased coordination?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#how-to-make-use-of-phased-coordination">How to make use of phased coordination?</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#how-to-define-a-phasedcoordinatorwiseagent">How to define a PhasedCoordinatorWiseAgent?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#how-does-a-phasedcoordinatorwiseagent-work">How does a PhasedCoordinatorWiseAgent work?</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#want-to-see-an-example_1">Want to see an example?</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">Retrieval Augmented Generation (RAG)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../using_cli/">Using CLI</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Declare agents in YAML</a>
-    <ul class="current">
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../declare_agents/">Declare agents in YAML</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../custom_agents/">How To Create Custom Agents</a>
                   </li>
@@ -174,7 +198,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Details</li>
-      <li class="breadcrumb-item active">Declare agents in YAML</li>
+      <li class="breadcrumb-item active">Agent Coordination</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -183,13 +207,109 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="declare-agents-in-yaml">Declare agents in YAML</h1>
+                <h1 id="wise-agents-coordination">Wise Agents Coordination</h1>
+<p>One of the most important features of an AI multi-agent system is the ability for multiple
+agents to work together to perform a complex task or solve a problem. The agents involved
+in the system might make use of an LLM, but they don't have to, they could also perform
+a task using an external API for example. The agents might also make use of different
+LLM models.</p>
+<p>Depending on the use case, agents may need to work together in different ways. Wise Agents
+provides support for a couple different types of agent coordination: <strong>sequential</strong> and <strong>phased</strong>.
+We'll take a closer look at each of these of coordination types in the next section.</p>
+<p>Note that most LLM clients available today are designed to require the LLM provider to support
+OpenAI tools in order to make use of tool calling. Notably, the agent coordination types provided
+by Wise Agents make it possible to make use of tools and/or external APIs even when using an LLM
+provider that doesn't support the use of the OpenAI tools. Moreover, the agent coordination types
+provided by Wise Agents also make it possible to tackle more advanced use cases that require
+more complex coordination between agents.</p>
+<h2 id="what-is-sequential-coordination">What is sequential coordination?</h2>
+<p>We might need agents to collaborate in a sequential manner where we have a sequence of agents
+and each agent in the sequence depends on the result from the previous agent in order to perform
+its task. We'll refer to this type of coordination as <strong>sequential</strong> coordination. Here, an agent
+performs a task and passes its result to the next agent in the sequence. The next agent processes
+the received result and performs its own task, again passing its result on to the next agent in the
+sequence until the final result from the last agent in the sequence is returned back to the client.</p>
+<h3 id="how-to-make-use-of-sequential-coordination">How to make use of sequential coordination?</h3>
+<p>Wise Agents provides a <code>wiseagents.agents.SequentialCoordinatorWiseAgent</code> that you can use to
+coordinate agents in a sequential manner. Once you've defined the agents you'd like to use
+(using agents provided by Wise Agents and/or custom agents that you've created), you simply
+need to specify the sequence of agents you'd like to use as a list of agent names when defining
+your <code>SequentialCoordinatorWiseAgent</code>. For example, if you have two agents, named "Agent1" and
+"Agent2", that you'd like to execute in a sequence, you'd specify <code>["Agent1", "Agent2"]</code>
+for the <code>agents</code> parameter when creating your <code>SequentialCoordinatorWiseAgent</code>.</p>
+<h4 id="want-to-see-an-example">Want to see an example?</h4>
+<p>To see a complete example on how to make use of sequential coordination, check out the
+<code>sequential_coordinator</code> <a href="https://github.com/wise-agents/wise-agents/tree/main/examples/sequential_coordinator">example</a>.</p>
+<h2 id="what-is-phased-coordination">What is phased coordination?</h2>
+<p>We might have a case where some agents are independent of each other and some agents depend on
+each other. In this case, we can take advantage of the fact that some agents can be executed
+together in parallel rather than executing all the agents in a sequence. Here, we make use of
+what we are calling <strong>phased coordination</strong>, where agents are grouped into phases such that
+agents in the same phase are independent of each other and thus can be run in parallel and
+agents in a later phase depend on the results from agents in the previous phase. Here, each
+agent will also add its results to the conversation history so that agents can take into
+account results from previous agents when processing their own tasks.</p>
+<h3 id="how-to-make-use-of-phased-coordination">How to make use of phased coordination?</h3>
+<p>Wise Agents provides a <code>wiseagents.agents.PhasedCoordinatorWiseAgent</code> that you can use to
+coordinate agents in a phased manner. You simply need to define the agents you'd like to use
+(using agents provided by Wise Agents and/or custom agents that you've created) and also
+define a <code>PhasedCoordinatorWiseAgent</code>.</p>
+<h4 id="how-to-define-a-phasedcoordinatorwiseagent">How to define a <code>PhasedCoordinatorWiseAgent</code>?</h4>
+<p>When defining your <code>PhasedCoordinatorWiseAgent</code>, there are a few optional parameters that
+you can specify: <code>phases</code>, <code>confidence_score_threshold</code>, and <code>max_iterations</code>.</p>
+<ul>
+<li>
+<p><code>phases</code>: This can be used to specify a list of phase names. The default value is 
+<code>["Data Collection", "Data Analysis"]</code>. This list of phase names will be used by the
+<code>PhasedCoordinatorWiseAgent</code> to determine the groups of agents that should be executed
+for each phase. Use phase names that make sense for your use case.</p>
+</li>
+<li>
+<p><code>confidence_score_threshold</code>: The confidence score threshold (between 0 and 100) to determine
+if the final answer is acceptable. The default value is 85. If the final answer that's been
+obtained after executing all the phases is less than the desired threshold, the
+<code>PhasedCoordinatorWiseAgent</code> will attempt to rephrase the original query and try to execute
+the phases again using the improved query to try to get to a better final answer.</p>
+</li>
+<li>
+<p><code>max_iterations</code>: This can be used to specify the maximum number of iterations to run
+the phases. The default value is 5. If the final answer that's been obtained after executing 
+all the phases doesn't mean the desired threshold and the maximum number of iterations hasn't
+been reached yet, then the <code>PhasedCoordinatorWiseAgent</code> will attempt to rephrase the original
+query and try to execute the phases again.</p>
+</li>
+</ul>
+<h4 id="how-does-a-phasedcoordinatorwiseagent-work">How does a <code>PhasedCoordinatorWiseAgent</code> work?</h4>
+<p>A <code>PhasedCoordinatorWiseAgent</code> makes use of its LLM to determine the agents that should be
+executed in parallel in phases. In particular, upon receiving a request, the LLM
+will use the names and descriptions of the agents from the agents registry to determine the agents
+that will be needed to solve the problem and will group the agents into phases taking into account
+the phase names, where agents in a phase will be executed in parallel. The <code>PhasedCoordinatorWiseAgent</code>
+will then kick off the first phase and once all the agents in that phase have finished performing their
+tasks, the <code>PhasedCoordinatorWiseAgent</code> will move on to the next phase and so on until all phases
+have been executed. </p>
+<p>Once all the phases have been executed, the <code>PhasedCoordinatorWiseAgent</code> will use its LLM to
+determine the final answer to the original query along with a confidence score.</p>
+<p>If the confidence score is equal to or exceeds the <code>confidence_score_threshold</code>, the final
+answer will be returned to the client.</p>
+<p>If the confidence score is less than the threshold, the <code>PhasedCoordinatorWiseAgent</code> will
+use its LLM to attempt to rephrase the original query and try to execute the phases again using the
+improved query to try to get to a better final answer. This process will be repeated until
+the desired confidence score is achieved or until the max number of iterations has been reached.</p>
+<blockquote>
+<p><strong><em>NOTE:</em></strong> The <code>PhasedCoordinatorWiseAgent</code> makes use of agent names and descriptions along
+with phase names to group the agents into phases. It's important to provide good descriptions
+for your agents to indicate their capabilities and dependencies. For example, if an agent
+depends on another agent, please indicate this in the agent's description.</p>
+</blockquote>
+<h4 id="want-to-see-an-example_1">Want to see an example?</h4>
+<p>TODO</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../using_cli/" class="btn btn-neutral float-left" title="Using CLI"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../custom_agents/" class="btn btn-neutral float-right" title="How To Create Custom Agents">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../contributing/" class="btn btn-neutral float-left" title="How to contribute"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../rag_architecture/" class="btn btn-neutral float-right" title="Retrieval Augmented Generation (RAG)">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -212,10 +332,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../using_cli/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../contributing/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../custom_agents/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../rag_architecture/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

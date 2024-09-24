@@ -55,7 +55,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Details</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">RAG Architecture</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../agent_coordination/">Agent Coordination</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../rag_architecture/">Retrieval Augmented Generation (RAG)</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../using_cli/">Using CLI</a>
                   </li>
@@ -215,8 +217,10 @@ to create and send a message to the appropriate agent. This destination agent wi
 type of collaboration that the agent is involved in. For example, if the agent has been invoked
 by a <code>PhasedCoordinatorWiseAgent</code> or an <code>AssistantAgent</code>, the response message will be sent back
 to that agent and the conversation history will be updated with the response as well. If the agent
-is involved in sequential collaboration, the response will be sent to either the next agent in the
+is involved in sequential coordination, the response will be sent to either the next agent in the
 sequence or back to the original requester if there are no more agents remaining.</p>
+<p>For more details about sequential and phased coordination, see the
+<a href="../agent_coordination/">Wise Agents Coordination</a> section.</p>
 <h2 id="implementing-the-process_response-method">Implementing the <code>process_response</code> method</h2>
 <p><strong>Method signature:</strong></p>
 <pre><code>def process_response(self, message: WiseAgentMessage) -&gt; bool:
