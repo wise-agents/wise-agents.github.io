@@ -63,6 +63,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../custom_agents/">How To Create Custom Agents</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../communication/">Communication between agents</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul class="current">
@@ -151,6 +153,8 @@
                 </li>
     </ul>
                 </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/utils/">utils</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/vectordb/">vectordb</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/vectordb/lang_chain_wise_agent_vector_db/">lang_chain_wise_agent_vector_db</a>
@@ -164,8 +168,6 @@
                 <li class="toctree-l2"><a class="reference internal" href="../reference/wiseagents/yaml/">yaml</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/wise_yaml_loader/">wise_yaml_loader</a>
-                </li>
-                <li class="toctree-l3"><a class="reference internal" href="../reference/wiseagents/yaml/yaml_utils/">yaml_utils</a>
                 </li>
     </ul>
                 </li>
@@ -287,7 +289,7 @@ export STOMP_PASSWORD=artemis
 <p>Once all agents are up and running, you can use the web interface agent as a chatbot and it will start sending requests to the intelligent agent. You will be able to see the interaction between the agents through the logs in both consoles.
 Try as an example to ask something like "Can you give me detailed information about Harry Potter". You will get the detailed information about Rowling's books translated in Italian :)</p>
 <h3 id="step-8-experiment">Step 8: Experiment</h3>
-<p>You can experiment with different agent configurations or modify the agent behaviors by editing the YAML files located in the <code>examples/memory_agentic_chatbot</code> directory. These configuration files define the agents' properties, including memory, communication methods, and response patterns. You can do that without restarting everything, just edit the yaml file(s) and use CLI's /reload command (see our documentation for more details on how to use CLI)</p>
+<p>You can experiment with different agent configurations or modify the agent behaviors by editing the YAML files located in the <code>examples/sequential_coordinator</code> directory. These configuration files define the agents' properties, including memory, communication methods, and response patterns. You can do that without restarting everything, just edit the yaml file(s) and use CLI's /reload command (see our documentation for more details on how to use CLI)</p>
 <h2 id="understanding-the-yaml-configuration">Understanding the YAML Configuration</h2>
 <ul>
 <li><strong>web-interface.yaml</strong>: Defines the web interface agent, which serves as the client interface for interacting with other agents.</li>

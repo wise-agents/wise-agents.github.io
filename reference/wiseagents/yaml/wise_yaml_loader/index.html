@@ -63,6 +63,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../../../custom_agents/">How To Create Custom Agents</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../../../communication/">Communication between agents</a>
+                  </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
@@ -121,6 +123,8 @@
                 </li>
     </ul>
                 </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../utils/">utils</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../vectordb/">vectordb</a>
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../vectordb/lang_chain_wise_agent_vector_db/">lang_chain_wise_agent_vector_db</a>
@@ -136,8 +140,6 @@
                 <li class="toctree-l3 current"><a class="reference internal current" href="#">wise_yaml_loader</a>
     <ul class="current">
     </ul>
-                </li>
-                <li class="toctree-l3"><a class="reference internal" href="../yaml_utils/">yaml_utils</a>
                 </li>
     </ul>
                 </li>
@@ -200,6 +202,62 @@
 
 
 
+<div class="doc doc-object doc-function">
+
+
+<h2 id="wiseagents.yaml.wise_yaml_loader.setup_yaml_for_env_vars" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">setup_yaml_for_env_vars</span><span class="p">()</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Configures the YAML Loader to do replacement of environment variables.
+It will replace YAML value strings such as '${HOST}' and '${PORT:80}' with environment
+variable lookups.
+In the first example, '${HOST}', it will replace the string with the value from doing
+<code>os.getenv("HOST")</code>. If the environment variable 'HOST" is not set, an exception will be thrown.
+In the second example, '${PORT:80}', we are doing the same but looking up `os.getenv("PORT"). In this case,
+if the 'PORT' environment variable is not set, it will use the default value shows, which in this case is '80'.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/yaml/wise_yaml_loader.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">setup_yaml_for_env_vars</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configures the YAML Loader to do replacement of environment variables.</span>
+<span class="sd">    It will replace YAML value strings such as &#39;${HOST}&#39; and &#39;${PORT:80}&#39; with environment</span>
+<span class="sd">    variable lookups.</span>
+<span class="sd">    In the first example, &#39;${HOST}&#39;, it will replace the string with the value from doing</span>
+<span class="sd">    `os.getenv(&quot;HOST&quot;)`. If the environment variable &#39;HOST&quot; is not set, an exception will be thrown.</span>
+<span class="sd">    In the second example, &#39;${PORT:80}&#39;, we are doing the same but looking up `os.getenv(&quot;PORT&quot;). In this case,</span>
+<span class="sd">    if the &#39;PORT&#39; environment variable is not set, it will use the default value shows, which in this case is &#39;80&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">yaml</span><span class="o">.</span><span class="n">add_implicit_resolver</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!</span><span class="si">{</span><span class="n">_env_var_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_env_pattern</span><span class="p">)</span>
+    <span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!</span><span class="si">{</span><span class="n">_env_var_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_env_constructor</span><span class="p">)</span>
+
+    <span class="n">yaml</span><span class="o">.</span><span class="n">add_implicit_resolver</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!</span><span class="si">{</span><span class="n">_env_var_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_env_pattern</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">WiseAgentsLoader</span><span class="p">)</span>
+    <span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!</span><span class="si">{</span><span class="n">_env_var_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_env_constructor</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">WiseAgentsLoader</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
 
 
   </div>
@@ -212,7 +270,7 @@
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../" class="btn btn-neutral float-left" title="yaml"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../yaml_utils/" class="btn btn-neutral float-right" title="yaml_utils">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../../../../community/" class="btn btn-neutral float-right" title="Community">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -238,7 +296,7 @@
       <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../yaml_utils/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../../../../community/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
