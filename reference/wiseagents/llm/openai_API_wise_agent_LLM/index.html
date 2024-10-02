@@ -143,6 +143,8 @@
     <ul>
                 <li class="toctree-l3"><a class="reference internal" href="../../yaml/wise_yaml_loader/">wise_yaml_loader</a>
                 </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../yaml/wiseagents_yaml_object/">wiseagents_yaml_object</a>
+                </li>
     </ul>
                 </li>
     </ul>
@@ -326,7 +328,8 @@
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
-<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OpenaiAPIWiseAgentLLM</span><span class="p">(</span><span class="n">WiseAgentRemoteLLM</span><span class="p">):</span>
+<span class="normal">112</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">OpenaiAPIWiseAgentLLM</span><span class="p">(</span><span class="n">WiseAgentRemoteLLM</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;A class to define a WiseAgentLLM that uses the OpenAI API.&#39;&#39;&#39;</span>
     <span class="n">client</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;!wiseagents.llm.OpenaiAPIWiseAgentLLM&#39;</span>
@@ -362,13 +365,14 @@
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Return the state of the agent. Removing the instance variable client to avoid it is serialized/deserialized by pyyaml.&#39;&#39;&#39;</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
         <span class="k">if</span> <span class="s1">&#39;client&#39;</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">state</span> 
 
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Connect to the remote machine.&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting to WiseAgentLLM on remote machine at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">remote_address</span><span class="si">}</span><span class="s2"> with API key </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">remote_address</span><span class="p">,</span> 
                 <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
 
@@ -509,7 +513,7 @@
 <span class="normal">47</span>
 <span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Return the state of the agent. Removing the instance variable client to avoid it is serialized/deserialized by pyyaml.&#39;&#39;&#39;</span>
-    <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
     <span class="k">if</span> <span class="s1">&#39;client&#39;</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">del</span> <span class="n">state</span><span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">state</span> 
@@ -695,8 +699,10 @@
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Connect to the remote machine.&#39;&#39;&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Connecting to WiseAgentLLM on remote machine at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">remote_address</span><span class="si">}</span><span class="s2"> with API key </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">openai</span><span class="o">.</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">remote_address</span><span class="p">,</span> 
             <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -777,8 +783,7 @@ Deal with the messages and tools is responsibility of the caller.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/openai_API_wise_agent_LLM.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 77</span>
-<span class="normal"> 78</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
 <span class="normal"> 79</span>
 <span class="normal"> 80</span>
 <span class="normal"> 81</span>
@@ -803,7 +808,8 @@ Deal with the messages and tools is responsibility of the caller.</p>
 <span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
-<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_chat_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+<span class="normal">103</span>
+<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_chat_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
                             <span class="n">messages</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ChatCompletionMessageParam</span><span class="p">],</span> 
                             <span class="n">tools</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ChatCompletionToolParam</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ChatCompletion</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Process a chat completion. This method is implemented from superclass WiseAgentLLM.</span>
@@ -876,8 +882,7 @@ The single prompt is processed and the result is returned, all the context and s
 </table>
             <details class="quote">
               <summary>Source code in <code>wiseagents/llm/openai_API_wise_agent_LLM.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">56</span>
-<span class="normal">57</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
@@ -895,7 +900,8 @@ The single prompt is processed and the result is returned, all the context and s
 <span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
-<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_single_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
+<span class="normal">75</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">process_single_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;Process a single prompt. This method is implemented from superclass WiseAgentLLM.</span>
 <span class="sd">    The single prompt is processed and the result is returned, all the context and state is maintained locally in the method</span>
 
