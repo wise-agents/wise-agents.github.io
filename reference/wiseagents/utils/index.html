@@ -253,19 +253,19 @@
 
             <details class="quote">
               <summary>Source code in <code>wiseagents/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">enforce_no_abstract_class_instances</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">check</span><span class="p">:</span> <span class="nb">type</span><span class="p">):</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">enforce_no_abstract_class_instances</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">check</span><span class="p">:</span> <span class="nb">type</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if a class has abstract methods.</span>
 
@@ -278,6 +278,126 @@
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">check</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">AbstractClassError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">__name</span><span class="si">}</span><span class="s2"> is an abstract class and cannot be instantiated.&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="wiseagents.utils.log_messages_exchanged" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">log_messages_exchanged</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">agent_name</span><span class="p">,</span> <span class="n">context_name</span><span class="p">,</span> <span class="n">dir_path</span><span class="o">=</span><span class="s1">&#39;./log/messages&#39;</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Log the messages exchanged in a conversation to the given file.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>messages</code></b>
+                  (<code><span title="typing.List">List</span>[<span title="openai.types.chat.ChatCompletionMessageParam">ChatCompletionMessageParam</span>]</code>)
+              –
+              <div class="doc-md-description">
+                <p>the messages to be logged</p>
+              </div>
+            </li>
+            <li>
+              <b><code>agent_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the name of the agent involved in this conversation with an LLM</p>
+              </div>
+            </li>
+            <li>
+              <b><code>context_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the name of the context in which the conversation took place</p>
+              </div>
+            </li>
+            <li>
+              <b><code>dir_path</code></b>
+                  (<code><span title="typing.Optional">Optional</span>[str]</code>, default:
+                      <code>&#39;./log/messages&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>the directory path to output the log file to, defaults to './log'</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>wiseagents/utils.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">log_messages_exchanged</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ChatCompletionMessageParam</span><span class="p">],</span> <span class="n">agent_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                           <span class="n">context_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;./log/messages&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log the messages exchanged in a conversation to the given file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        messages: the messages to be logged</span>
+<span class="sd">        agent_name: the name of the agent involved in this conversation with an LLM</span>
+<span class="sd">        context_name: the name of the context in which the conversation took place</span>
+<span class="sd">        dir_path: the directory path to output the log file to, defaults to &#39;./log&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context_name</span> <span class="o">=</span> <span class="n">context_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/md&#39;</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/md&#39;</span><span class="p">)</span>   
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/json&#39;</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/json&#39;</span><span class="p">)</span>   
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/md/</span><span class="si">{</span><span class="n">agent_name</span><span class="si">}</span><span class="s1">.md&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">message</span> <span class="p">:</span> <span class="n">ChatCompletionMessageParam</span>
+        <span class="k">for</span> <span class="n">message</span>  <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;## </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;role&#39;</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">)</span><span class="si">}</span><span class="se">\n\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1">#file.write(f&quot;{message}\n\n\n&quot;)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s1">/json/</span><span class="si">{</span><span class="n">agent_name</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">agent_name</span><span class="si">}</span><span class="s2">] Logged messages to </span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">context_name</span><span class="si">}</span><span class="s2">/ for the current request&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

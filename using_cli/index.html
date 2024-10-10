@@ -72,15 +72,7 @@
     <li class="toctree-l2"><a class="reference internal" href="#table-of-contents">Table of Contents</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#running-the-cli">Running the CLI</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#available-commands">Available Commands</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#help-or-h">/help or /h</a>
-    </li>
     <li class="toctree-l4"><a class="reference internal" href="#load-agents-or-l">/load-agents or /l</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#reload-agents-or-r">/reload-agents or /r</a>
@@ -289,18 +281,32 @@
 <hr />
 <h3 id="running-the-cli">Running the CLI</h3>
 <p>To start the Wise Agents CLI, run the script from your terminal:</p>
-<pre><code class="language-bash">python src/wiseagents/cli/wise_agent_cli.py [path_to_agents_file.yaml]
-</code></pre>
-<ul>
-<li>The <code>[path_to_agents_file.yaml]</code> is optional. If provided, the CLI will automatically load agents from the specified YAML file upon startup.</li>
-</ul>
-<hr />
-<h2 id="usage">Usage</h2>
-<p>Once the CLI is running, you can interact with it using various commands. The CLI operates in a loop, prompting you for input after each command execution.</p>
-<h3 id="available-commands">Available Commands</h3>
-<h4 id="help-or-h"><code>/help</code> or <code>/h</code></h4>
-<p>Displays a list of available commands and their descriptions.</p>
-<pre><code class="language-plaintext">/(l)oad-agents: Load agents from file
+<pre><code class="language-bash">python src/wiseagents/cli/wise_agent_cli.py --help
+usage: Wise Agent Argument Parser [-h] [--debug DEBUG] [filename]
+
+Wise Agent CLI to run and manage Wise Agents
+
+positional arguments:
+  filename       is optional. If provided, the CLI will automatically load agents from the specified YAML file upon startup.
+
+options:
+  -h, --help     show this help message and exit
+  --debug DEBUG  Setting the logging level to DEBUG instead of INFO
+
+---
+
+## Usage
+
+Once the CLI is running, you can interact with it using various commands. The CLI operates in a loop, prompting you for input after each command execution.
+
+### Available Commands
+
+#### `/help` or `/h`
+
+Displays a list of available commands and their descriptions.
+
+```plaintext
+/(l)oad-agents: Load agents from file
 /(r)eload agents: Reload agents from file
 /(c)hat: Start a chat
 /(t)race: Show the message trace
